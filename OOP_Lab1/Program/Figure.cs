@@ -11,7 +11,7 @@ namespace Lab_OOP1;
         int CenterX { get; set; }
         int CenterY { get; set; }
 
-        int Color { get; set; }
+        
 
         
      }

@@ -13,6 +13,6 @@ namespace Lab_OOP1;
 
        public int Color { get; set; }
 
-        //public bool IsDrawn = false;
+        
     }
 

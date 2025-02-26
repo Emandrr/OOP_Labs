@@ -10,12 +10,12 @@ right triangle - side
 triangle with 90 andle - two sides (2 cathetus)
 rectangle - two sides
 ellipse - two radius
-After chosing special parametr - provided figure will be drawn and put on firat plan of worspace
+After chosing special parametr - provided figure will be drawn and put on first plan of worspace
 3) Move drawn figure - this option is available ONLY when there any figures on board.
 After chosing one of drawn figures user gets in special movement mode (each side(up,down,left,right) has special number [1..4]
 to go out from special mode enter -1)
 4) Delete drawn figure - this function is available ONLY when there any figures on board.
-After chosing one of drawn figures (they're described in range [0..amount of figures-1]),to choose a figure enter a digit from provide range.
+After chosing one of drawn figures (they're described in range [0..amount of figures-1]),to choose a figure enter a digit from provided range.
 Afeter choise figures disappears
 5) Save combination of figures in file - this function saves all figures in file storage.txt
 6) Load from file - this function load data from file. If file is empty, workspace will clear
