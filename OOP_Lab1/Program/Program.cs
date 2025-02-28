@@ -29,16 +29,16 @@ public  class Program
         }
         for (int i = 11; i < 60; ++i)
         {
-            Console.SetCursorPosition(219, i);
+            Console.SetCursorPosition(229, i);
             Console.Write("=");
         }
-        for (int i = 0; i < 220; ++i)
+        for (int i = 0; i < 230; ++i)
         {
             Console.SetCursorPosition(i,11 );
             Console.Write("=");
         }
 
-        for (int i = 0; i < 220; ++i)
+        for (int i = 0; i < 230; ++i)
         {
             Console.SetCursorPosition(i, 59);
             Console.Write("=");
@@ -76,16 +76,16 @@ public  class Program
                 }
                 for (int i = 11; i < 60; ++i)
                 {
-                    Console.SetCursorPosition(219, i);
+                    Console.SetCursorPosition(229, i);
                     Console.Write("=");
                 }
-                for (int i = 0; i < 220; ++i)
+                for (int i = 0; i < 230; ++i)
                 {
                     Console.SetCursorPosition(i, 11);
                     Console.Write("=");
                 }
 
-                for (int i = 0; i < 220; ++i)
+                for (int i = 0; i < 230; ++i)
                 {
                     Console.SetCursorPosition(i, 59);
                     Console.Write("=");
@@ -209,7 +209,7 @@ public  class Program
 
                             }
                             int figr = check.CheckWithBorders(Console.ReadLine(), 0, k - 1, text1+txt);
-                            text1 = "Введите опцию заливки : 1 - / 2 - #";
+                            text1 = $"Введите опцию заливки :0 - "+" ' ' "+" 1 - / 2 - #";
                             Console.WriteLine(text1);
                             int color = check.CheckWithBorders(Console.ReadLine(), 0, 2, text1);
                             draw.Fill(figr, color);
@@ -254,16 +254,16 @@ public  class Program
                             }
                             for (int i = 11; i < 60; ++i)
                             {
-                                Console.SetCursorPosition(219, i);
+                                Console.SetCursorPosition(229, i);
                                 Console.Write("=");
                             }
-                            for (int i = 0; i < 220; ++i)
+                            for (int i = 0; i < 230; ++i)
                             {
                                 Console.SetCursorPosition(i, 11);
                                 Console.Write("=");
                             }
 
-                            for (int i = 0; i < 220; ++i)
+                            for (int i = 0; i < 230; ++i)
                             {
                                 Console.SetCursorPosition(i, 59);
                                 Console.Write("=");

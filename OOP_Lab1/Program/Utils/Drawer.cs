@@ -183,7 +183,7 @@ public class Drawer
             }
         }
     }
-        public void DrawRectangle(int a,int b)
+    public void DrawRectangle(int a,int b)
     {
         if (a < 3 || b < 3 || a > 20 || b > 20) return;
         Rectangle temp = new Rectangle();
