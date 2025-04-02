@@ -1,0 +1,141 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="OOP_Lab2.Document" Collapsed="true">
+    <Position X="1.25" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAAAAAAAAAAAAAAAQAAAABEAAAAAAgAAAAAAAA=</HashCode>
+      <FileName>Document.cs</FileName>
+      <NewMemberFileName>EditorRole.cs</NewMemberFileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OOP_Lab2.EventManager" Collapsed="true">
+    <Position X="1.25" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAIACAABAAAAAAAAAAAA=</HashCode>
+      <FileName>EventManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OOP_Lab2.MainMenu" Collapsed="true">
+    <Position X="3.25" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MainMenu.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OOP_Lab2.User" Collapsed="true">
+    <Position X="3.25" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQQAAAABAAAAAAAAAUAAAAAAgAAAAAAABAAAAA=</HashCode>
+      <FileName>User.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OOP_Lab2.ChangeFormatAdapters.CurrentToTxtAdapter" Collapsed="true">
+    <Position X="15.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ChangeFormatAdapters\CurrentToTxtAdapter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OOP_Lab2.ChangeFormatAdapters.CurrentToJSONAdapter" Collapsed="true">
+    <Position X="15.5" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ChangeFormatAdapters\CurrentToJSONAdapter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OOP_Lab2.ChangeFormatAdapters.CurrentToXMLAdapter" Collapsed="true">
+    <Position X="13.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ChangeFormatAdapters\CurrentToXMLAdapter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OOP_Lab2.ChangeFormatAdapters.CurrentToMarkdownAdapter" Collapsed="true">
+    <Position X="13.25" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ChangeFormatAdapters\CurrentToMarkdownAdapter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OOP_Lab2.Command.UndoCommand" Collapsed="true">
+    <Position X="10" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Command\UndoCommand.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OOP_Lab2.Command.RedoCommand" Collapsed="true">
+    <Position X="8" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Command\RedoCommand.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OOP_Lab2.StyleDecorator.BoldDecorator" Collapsed="true">
+    <Position X="1.25" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>StyleDecorator\BoldDecorator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OOP_Lab2.StyleDecorator.ItalicDecorator" Collapsed="true">
+    <Position X="3.75" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>StyleDecorator\ItalicDecorator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OOP_Lab2.StyleDecorator.UnderlineDecorator" Collapsed="true">
+    <Position X="6" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>StyleDecorator\UnderlineDecorator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OOP_Lab2.StyleDecorator.BaseDecorator" Collapsed="true">
+    <Position X="3.5" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>StyleDecorator\BaseDecorator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OOP_Lab2.UserStrategy.ReaderStrategy" Collapsed="true">
+    <Position X="11" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>UserStrategy\ReaderStrategy.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="OOP_Lab2.UserStrategy.EditorStrategy" Collapsed="true">
+    <Position X="13.25" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>UserStrategy\EditorStrategy.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="OOP_Lab2.UserStrategy.AdminStrategy" Collapsed="true">
+    <Position X="8.75" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAAASBIAAAAAAAAAAABAAAAAAAAAAAAAA=</HashCode>
+      <FileName>UserStrategy\AdminStrategy.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Interface Name="OOP_Lab2.Command.ICommand" Collapsed="true">
+    <Position X="11" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Command\ICommand.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="OOP_Lab2.UserStrategy.IUserStrategy" Collapsed="true">
+    <Position X="11" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>UserStrategy\IUserStrategy.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

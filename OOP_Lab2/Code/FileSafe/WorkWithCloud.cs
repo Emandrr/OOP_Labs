@@ -1,0 +1,143 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Google;
+using Google.Apis.Auth.OAuth2;
+using Google.Apis.Auth.OAuth2.Flows;
+using Google.Apis.Auth.OAuth2.Responses;
+using Google.Apis.Drive.v3;
+using Google.Apis.Services;
+using Google.Apis.Upload;
+using Google.Apis.Util.Store;
+
+namespace OOP_Lab2.FileSafe
+{
+    class WorkWithCloud
+    {
+
+        private static DriveService GetService()
+        {
+            var tokenResponse = new TokenResponse
+            {
+                AccessToken = "ya29.a0AeXRPp6xlt4YSVv5wseFTXoiuawNehhHS93qwu70TKGfGLSsWg-LkGkWDnEgYU7gx9hk7J3HvNRy2TtQekTdBXaNDzf5uYcJJdXS90nQ0QafTU-W2JOU7tzKFwrJKrFziYFixcyu_0hRX4HhSeYIdkuAVgphvQmjOLBZJeCVaCgYKAcgSARASFQHGX2MiuZ6gjojGTAjKrPfZcyKjpA0175",
+                RefreshToken = "1//04Dn9iVKs6zB4CgYIARAAGAQSNwF-L9IrODNqFmWQIyffxis7osfiY9QFSmQTv7ciXMrgaotfSZZZ6s16M86UBnhrgeuZTt4B26M",
+            };
+
+
+            var applicationName = "Lab";// Use the name of the project in Google Cloud
+            var username = "pavel1zd@gmail.com"; // Use your email
+
+
+            var apiCodeFlow = new GoogleAuthorizationCodeFlow(new GoogleAuthorizationCodeFlow.Initializer
+            {
+                ClientSecrets = new ClientSecrets
+                {
+                    ClientId = "1049876216335-9l4p6hc4gd2c039ioelj8n0uneo6ceq1.apps.googleusercontent.com",
+                    ClientSecret = "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"
+                },
+                Scopes = new[] { DriveService.Scope.Drive },
+                DataStore = new FileDataStore(applicationName)
+            });
+
+
+            var credential = new UserCredential(apiCodeFlow, username, tokenResponse);
+
+
+
+            var service = new DriveService(new BaseClientService.Initializer
+            {
+                HttpClientInitializer = credential,
+                ApplicationName = applicationName
+            });
+            return service;
+        }
+
+        public string UploadFile(string fileName, int type, string folder, string fileDescription)
+        {
+            DriveService service = GetService();
+            string fileMime="";
+            Stream file = new FileStream(fileName, FileMode.Open, FileAccess.Read);
+            if (type == 0)
+            {
+                fileMime = "text/plain";
+            }
+            var driveFile = new Google.Apis.Drive.v3.Data.File();
+            driveFile.Name = fileName;
+           // driveFile.Description = "111";
+            driveFile.MimeType = fileMime;
+            driveFile.Parents = new string[] { "1Iiy2UToZeMaFiviRQRwIf8aZJoxncAws" };
+            //service.Files.Get
+            //
+           // service.Files.Update(driveFile, file, driveFile.MimeType,);
+            var request = service.Files.Create(driveFile, file, driveFile.MimeType);
+            request.Fields = "id";
+
+            var response = request.Upload();
+            if (response.Status != UploadStatus.Completed)
+                throw response.Exception;
+
+            return request.ResponseBody.Id;
+        }
+
+        public IEnumerable<Google.Apis.Drive.v3.Data.File> GetFiles(string folder)
+        {
+            var service = GetService();
+
+            var fileList = service.Files.List();
+            fileList.Q = $"mimeType!='application/vnd.google-apps.folder' and '{folder}' in parents";
+            fileList.Fields = "nextPageToken, files(id, name, size, mimeType)";
+
+            var result = new List<Google.Apis.Drive.v3.Data.File>();
+            string pageToken = null;
+            do
+            {
+                fileList.PageToken = pageToken;
+                var filesResult = fileList.Execute();
+                var files = filesResult.Files;
+                pageToken = filesResult.NextPageToken;
+               
+                result.AddRange(files);
+            } while (pageToken != null);
+        
+
+        return result;
+        }
+        public string UpdateFile(string fileName, int type, string folder, string fileDescription,string fileId, int choise )
+        {
+            DriveService service = GetService();
+            string fileMime = "";
+            Stream file = new FileStream(fileName, FileMode.Open, FileAccess.Read);
+            if (type == 0)
+            {
+                fileMime = "text/plain";
+            }
+            var driveFile = new Google.Apis.Drive.v3.Data.File();
+            //driveFile.Name = fileName;
+            //driveFile.Description = "111";
+            driveFile.MimeType = fileMime;
+            var fileMetadata = service.Files.Get(fileId).Execute();
+            if (choise == 0) driveFile.Name = fileMetadata.Name;
+            else driveFile.Name = Console.ReadLine()+".txt";
+                //driveFile.addParents = new string[] { "1YjkitbfUoFkCHissqIBfZR9UTjfuqxQ8" };
+                //
+
+            var request = service.Files.Update(driveFile, fileId, file, driveFile.MimeType);
+            request.Fields = "id, name, webViewLink";
+
+            var response = request.Upload();
+            if (response.Status != UploadStatus.Completed)
+                throw response.Exception;
+
+            return driveFile.Name;
+        }
+        public void Delete(string fileId)
+        {
+            var service = GetService();
+            var command = service.Files.Delete(fileId);
+            var result = command.Execute();
+        }
+    }
+}

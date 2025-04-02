@@ -1,0 +1,16 @@
+{
+  "version": 2,
+  "dgSpecHash": "kZ4dkg4M0Xo=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\pavel\\source\\repos\\OOP_Lab2\\OOP_Lab2\\OOP_Lab2.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\pavel\\.nuget\\packages\\google.apis\\1.69.0\\google.apis.1.69.0.nupkg.sha512",
+    "C:\\Users\\pavel\\.nuget\\packages\\google.apis.auth\\1.69.0\\google.apis.auth.1.69.0.nupkg.sha512",
+    "C:\\Users\\pavel\\.nuget\\packages\\google.apis.core\\1.69.0\\google.apis.core.1.69.0.nupkg.sha512",
+    "C:\\Users\\pavel\\.nuget\\packages\\google.apis.drive.v3\\1.69.0.3703\\google.apis.drive.v3.1.69.0.3703.nupkg.sha512",
+    "C:\\Users\\pavel\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
+    "C:\\Users\\pavel\\.nuget\\packages\\system.codedom\\7.0.0\\system.codedom.7.0.0.nupkg.sha512",
+    "C:\\Users\\pavel\\.nuget\\packages\\system.management\\7.0.2\\system.management.7.0.2.nupkg.sha512"
+  ],
+  "logs": []
+}
