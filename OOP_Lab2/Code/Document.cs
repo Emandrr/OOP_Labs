@@ -20,7 +20,7 @@ namespace OOP_Lab2
         WorkWithCloud w_c;
         WorkWithLocal w_l;
         CloudStrategy CloudStr;
-        public Document(User admin,string name)
+        public Document(User admin,string name,int type)
         {
             this.Admin = admin;
             ListOfAllUsers = new List<User>();
@@ -28,6 +28,7 @@ namespace OOP_Lab2
             this.name = name;
             w_c = new WorkWithCloud();
             w_l = new WorkWithLocal();
+            this.type = type;
         }
         public void ExecuteCloud(User usr)
         {

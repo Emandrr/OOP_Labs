@@ -71,5 +71,19 @@ namespace OOP_Lab2
 
             return false;
         }
+        public bool CheckStringInCollectionDoc(List<Document> Users, string info)
+        {
+            foreach (Document doc in Users)
+            {
+                if (doc.name == info)
+                {
+
+                    //Console.WriteLine("Такой элемент уже есть !");
+                    return true;
+                }
+            }
+
+            return false;
+        }
     }
 }

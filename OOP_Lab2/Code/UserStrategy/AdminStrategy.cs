@@ -10,11 +10,10 @@ namespace OOP_Lab2.UserStrategy
         private EventManager Manager;
         private User CurrentUser;
         Document CurrDoc;
-        public void Execute(User user)
+        public void Execute(User user,Document doc)
         {
             Manager = new EventManager();
-            string name = Console.ReadLine();
-            CurrDoc = new Document(user,name);
+            CurrDoc = doc;
             CurrentUser = user;
             ChangeRole(CurrentUser);
             CheckChangeRoleLogs();

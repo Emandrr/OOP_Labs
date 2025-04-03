@@ -7,6 +7,6 @@ namespace OOP_Lab2.UserStrategy
 {
     public interface IUserStrategy
     {
-        public void Execute(User user);
+        public void Execute(User user,Document doc);
     }
 }

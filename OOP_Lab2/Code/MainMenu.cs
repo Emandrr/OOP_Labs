@@ -13,11 +13,11 @@ namespace OOP_Lab2
         string output;
         Checker checker = new Checker();
         List<User> Users;
-        ManageUserFile manager = new ManageUserFile();
+        ManageMemFile<User> manager = new ManageMemFile<User>();
         WorkWithUsers Worker = new WorkWithUsers();
         public MainMenu()
         {
-            Users = manager.GetUsers();
+            Users = manager.GetCollection("mem.json");
             if (Users == null) Users = new List<User>();
         }
         public void Start()
@@ -38,7 +38,9 @@ namespace OOP_Lab2
                         Console.WriteLine("Ошибка такой пользователь есть! " + output);
                         name = Console.ReadLine();
                     }
-                    Worker.Add(Users,name);
+                    User tmp = new User("admin",name);
+                    Users.Add(tmp);
+                    //tmp.Enter();
                     Clear(4);
                 }
                 else if( choise == 1)
@@ -59,12 +61,12 @@ namespace OOP_Lab2
 
                     foreach(User a in Users)
                     {
-                        if (a.Name == UserName) a.ExecuteStrategy();
+                        if (a.Name == UserName) a.Enter();
                     }
                 }
                 else if (choise == -1)
                 {
-                    manager.WriteUsers(Users);
+                    manager.WriteCollection(Users,"mem.json");
                     return;
                 }
             }

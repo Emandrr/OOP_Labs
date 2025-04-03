@@ -1,33 +1,36 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="OOP_Lab2.Document" Collapsed="true">
-    <Position X="1.25" Y="5" Width="1.5" />
+  <Class Name="OOP_Lab2.Document">
+    <Position X="5.25" Y="8" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAIAAAAAAAAAAAAAAAQAAAABEAAAAAAgAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAEACAAAAAAAAAQAQAABFAAAAAAAAAAAACAA=</HashCode>
       <FileName>Document.cs</FileName>
       <NewMemberFileName>EditorRole.cs</NewMemberFileName>
     </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Admin" />
+    </ShowAsAssociation>
   </Class>
-  <Class Name="OOP_Lab2.EventManager" Collapsed="true">
-    <Position X="1.25" Y="6" Width="1.5" />
+  <Class Name="OOP_Lab2.EventManager">
+    <Position X="1.25" Y="7.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAIACAABAAAAAAAAAAAA=</HashCode>
       <FileName>EventManager.cs</FileName>
     </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Field Name="listeners" />
+    </ShowAsCollectionAssociation>
   </Class>
-  <Class Name="OOP_Lab2.MainMenu" Collapsed="true">
-    <Position X="3.25" Y="6" Width="1.5" />
+  <Class Name="OOP_Lab2.User">
+    <Position X="5.5" Y="3.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>MainMenu.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="OOP_Lab2.User" Collapsed="true">
-    <Position X="3.25" Y="5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAQQAAAABAAAAAAAAAUAAAAAAgAAAAAAABAAAAA=</HashCode>
+      <HashCode>AAAAAAQQAAAABAAAAAAAAAUAAAAMAgAAAAAAABAAAAA=</HashCode>
       <FileName>User.cs</FileName>
     </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Strategy" />
+      <Property Name="TemporaryDocument" />
+    </ShowAsAssociation>
   </Class>
   <Class Name="OOP_Lab2.ChangeFormatAdapters.CurrentToTxtAdapter" Collapsed="true">
     <Position X="15.5" Y="2" Width="1.5" />
@@ -43,7 +46,7 @@
       <FileName>ChangeFormatAdapters\CurrentToJSONAdapter.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="OOP_Lab2.ChangeFormatAdapters.CurrentToXMLAdapter" Collapsed="true">
+  <Class Name="OOP_Lab2.ChangeFormatAdapters.CurrentToXMLAdapter">
     <Position X="13.25" Y="2" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
@@ -71,35 +74,35 @@
       <FileName>Command\RedoCommand.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="OOP_Lab2.StyleDecorator.BoldDecorator" Collapsed="true">
-    <Position X="1.25" Y="2.25" Width="1.5" />
+  <Class Name="OOP_Lab2.StyleDecorator.BoldDecorator">
+    <Position X="1.25" Y="1" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>StyleDecorator\BoldDecorator.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="OOP_Lab2.StyleDecorator.ItalicDecorator" Collapsed="true">
+  <Class Name="OOP_Lab2.StyleDecorator.ItalicDecorator">
     <Position X="3.75" Y="2.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>StyleDecorator\ItalicDecorator.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="OOP_Lab2.StyleDecorator.UnderlineDecorator" Collapsed="true">
+  <Class Name="OOP_Lab2.StyleDecorator.UnderlineDecorator">
     <Position X="6" Y="2.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>StyleDecorator\UnderlineDecorator.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="OOP_Lab2.StyleDecorator.BaseDecorator" Collapsed="true">
-    <Position X="3.5" Y="1" Width="1.5" />
+  <Class Name="OOP_Lab2.StyleDecorator.BaseDecorator">
+    <Position X="3.75" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>StyleDecorator\BaseDecorator.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="OOP_Lab2.UserStrategy.ReaderStrategy" Collapsed="true">
+  <Class Name="OOP_Lab2.UserStrategy.ReaderStrategy">
     <Position X="11" Y="8.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
@@ -107,7 +110,7 @@
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="OOP_Lab2.UserStrategy.EditorStrategy" Collapsed="true">
+  <Class Name="OOP_Lab2.UserStrategy.EditorStrategy">
     <Position X="13.25" Y="8.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
@@ -115,13 +118,70 @@
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="OOP_Lab2.UserStrategy.AdminStrategy" Collapsed="true">
+  <Class Name="OOP_Lab2.UserStrategy.AdminStrategy">
     <Position X="8.75" Y="8.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAIAAAASBIAAAAAAAAAAABAAAAAAAAAAAAAA=</HashCode>
       <FileName>UserStrategy\AdminStrategy.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="OOP_Lab2.FileSafe.CloudStrategy">
+    <Position X="16" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAIAACQAAAAAAAAQCAAAAAgAAAAAAAAASAA=</HashCode>
+      <FileName>FileSafe\CloudStrategy.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="w_c" />
+      <Field Name="Cstorage" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="OOP_Lab2.FileSafe.LocalStrategy">
+    <Position X="17.75" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAACAAAQAABAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>FileSafe\LocalStrategy.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="w_l" />
+      <Field Name="Lstorage" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="OOP_Lab2.FileSafe.WorkWithCloud">
+    <Position X="16.25" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAABAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAgAAEA=</HashCode>
+      <FileName>FileSafe\WorkWithCloud.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OOP_Lab2.FileSafe.WorkWithLocal">
+    <Position X="18.25" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAEAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>FileSafe\WorkWithLocal.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OOP_Lab2.Storages.CloudStorage" Collapsed="true">
+    <Position X="19.5" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAFAAAAAgAAAAAAAAA=</HashCode>
+      <FileName>Storages\CloudStorage.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OOP_Lab2.Storages.LocalStorage" Collapsed="true">
+    <Position X="21.25" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Storages\LocalStorage.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OOP_Lab2.MainMenu">
+    <Position X="3.25" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAADAAACgAACAAAAAAAAAECAAAABAAAAAAAABAAAA=</HashCode>
+      <FileName>MainMenu.cs</FileName>
+    </TypeIdentifier>
   </Class>
   <Interface Name="OOP_Lab2.Command.ICommand" Collapsed="true">
     <Position X="11" Y="4.75" Width="1.5" />

@@ -9,12 +9,7 @@ namespace OOP_Lab2
     class WorkWithUsers
     {
         Checker checker = new Checker();
-        public void Add(List<User> Users,string name)
-        {
-            
-            User tmp = new User("admin", name);
-            Users.Add(tmp);
-        }
+       
         public void Print(List<User> Users)
         {
             foreach(User usr in Users)
