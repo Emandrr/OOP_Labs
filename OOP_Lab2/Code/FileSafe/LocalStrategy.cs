@@ -23,7 +23,7 @@ namespace OOP_Lab2.FileSafe
         }
         public void LocalUpdate()
         {
-
+            //w_l.Update
         }
     }
 }

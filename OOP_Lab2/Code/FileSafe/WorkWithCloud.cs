@@ -59,6 +59,11 @@ namespace OOP_Lab2.FileSafe
         {
             DriveService service = GetService();
             string fileMime="";
+            var t = GetFiles();
+            foreach(var a in t)
+            {
+                if (a.Name == fileName) return "-1";
+            }
             Stream file = new FileStream(fileName, FileMode.Open, FileAccess.Read);
             if (type == 0)
             {
@@ -82,12 +87,12 @@ namespace OOP_Lab2.FileSafe
             return request.ResponseBody.Id;
         }
 
-        public IEnumerable<Google.Apis.Drive.v3.Data.File> GetFiles(string folder)
+        public IEnumerable<Google.Apis.Drive.v3.Data.File> GetFiles()
         {
             var service = GetService();
-
+            
             var fileList = service.Files.List();
-            fileList.Q = $"mimeType!='application/vnd.google-apps.folder' and '{folder}' in parents";
+            fileList.Q = $"mimeType!='application/vnd.google-apps.folder' and '{"1Iiy2UToZeMaFiviRQRwIf8aZJoxncAws"}' in parents";
             fileList.Fields = "nextPageToken, files(id, name, size, mimeType)";
 
             var result = new List<Google.Apis.Drive.v3.Data.File>();
@@ -107,6 +112,11 @@ namespace OOP_Lab2.FileSafe
         }
         public string UpdateFile(string fileName, int type, string folder, string fileDescription,string fileId, int choise )
         {
+            var t = GetFiles();
+            foreach (var a in t)
+            {
+                if (a.Name == fileName) return "-1";
+            }
             DriveService service = GetService();
             string fileMime = "";
             Stream file = new FileStream(fileName, FileMode.Open, FileAccess.Read);

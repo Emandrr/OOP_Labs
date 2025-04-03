@@ -13,7 +13,8 @@ namespace OOP_Lab2
         public string name {get;set;}
         public List<User> ListOfAllUsers { get; set; }
         public User Admin { get; set; }
-
+        
+        public int type { get; set; }
         private CloudStorage Cstorage;
         private LocalStorage Lstorage;
         WorkWithCloud w_c;
@@ -28,11 +29,11 @@ namespace OOP_Lab2
             w_c = new WorkWithCloud();
             w_l = new WorkWithLocal();
         }
-        public void ExecuteCloud()
+        public void ExecuteCloud(User usr)
         {
             CloudStr = new CloudStrategy();
             Cstorage = new CloudStorage();
-            CloudStr.Execute(Cstorage);
+            CloudStr.Execute(Cstorage,usr,this);
         }
         
     }

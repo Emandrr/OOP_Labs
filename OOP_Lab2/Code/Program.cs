@@ -4,6 +4,7 @@ using OOP_Lab2.FileSafe;
 
 using System.Runtime.InteropServices;
 
-
+MainMenu menu = new MainMenu();
+menu.Start();
 
 

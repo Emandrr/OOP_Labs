@@ -10,5 +10,7 @@ namespace OOP_Lab2.Storages
     {
        public string name { get; set; }
        public string fileId { get; set; }
+
+       public int type { get; set; }
     }
 }

@@ -12,28 +12,64 @@ namespace OOP_Lab2.FileSafe
         WorkWithCloud w_c;
         //WorkWithLocal w_l;
         CloudStorage Cstorage;
-        public void Execute(CloudStorage cs)
+        Checker checker = new Checker();
+        public void Execute(CloudStorage cs,User usr,Document doc)
         {
             w_c = new WorkWithCloud();
             Cstorage = cs;
-            //w_c.UploadFile("temp.txt",0,null,null);
+            Console.WriteLine("1 - Сохранить в облако, 2 - Список файлов в облаке, 3 - Поменять содержимое файла, 4 - Удалить файл");
+            int choise = checker.CheckWithBorders(Console.ReadLine(),1,3, "1 - Сохранить в облако, 2 - Список файлов в облаке, 3 - Поменять содержимое файла, 4 - Удалить файл", 2);
+            while (true)
+            {
+                if (choise == 1)
+                {
+                    if (CloudSave(doc) == -1)
+                    {
+                        Console.WriteLine("Такой файл уже существует в облаке, переименуйте его");
+                        return;
+                    }
+
+                }
+                if(choise == 2)
+                {
+                    CloudGetInfo();
+                }
+                if(choise == 3)
+                {
+                    CloudUpdate(doc);
+                }
+                if(choise == 4)
+                {
+                    if (doc.Admin == usr)
+                    {
+                        CloudDelete();
+                    }
+                    else
+                    {
+                        Console.WriteLine("Нет прав для удаления");
+                        return;
+                    }
+                }
+            }
         }
-        public void CloudSave(string dest, int type)
+        public int CloudSave(Document doc)
         {
             
-            string id = w_c.UploadFile(dest, type, "2", "2");
+            string id = w_c.UploadFile(doc.name, doc.type, "2", "2");
+            if (id == "-1") return -1;
             Cstorage.fileId = id;
-            Cstorage.name = dest;
+            //Cstorage.name = doc.name;
+            return 0;
         }
-        public void CloudUpdate(string dest, int type)
+        public void CloudUpdate(Document doc)
         {
 
-            string a = w_c.UpdateFile(dest, type, "2", "2", Cstorage.fileId, 1);
+            string a = w_c.UpdateFile(doc.name, doc.type, "2", "2", Cstorage.fileId, 1);
             Cstorage.name = a;
         }
-        public void CloudGetInfo(string folder)
+        public void CloudGetInfo()
         {
-            var a = w_c.GetFiles(folder);
+            var a = w_c.GetFiles();
             foreach (var b in a)
             {
                 Console.WriteLine(b.Name + " " + b.Size + " " + b.Id);
