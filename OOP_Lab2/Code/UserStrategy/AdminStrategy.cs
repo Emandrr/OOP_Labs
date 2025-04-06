@@ -1,7 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using Google.Apis.Drive.v3.Data;
+using OOP_Lab2.FileSafe;
+using OOP_Lab2.Menu_s;
 
 namespace OOP_Lab2.UserStrategy
 {
@@ -10,26 +14,56 @@ namespace OOP_Lab2.UserStrategy
         private EventManager Manager;
         private User CurrentUser;
         Document CurrDoc;
-        public void Execute(User user,Document doc)
+        DocumentMenu menu;
+        Settings settings;
+        List<Document> docs;
+        ManageMemFile<Document> manager = new ManageMemFile<Document>();
+        WorkWithCloud w_c = new WorkWithCloud();
+        public void Execute(User user,Document doc, Settings set,List<Document> d)
         {
             Manager = new EventManager();
             CurrDoc = doc;
             CurrentUser = user;
-            ChangeRole(CurrentUser);
-            CheckChangeRoleLogs();
+            menu = new DocumentMenu("admin",this,CurrDoc,set);
+            menu.AdminMenu();
+            settings = set;
+            docs = d;
+            //ChangeRole(CurrentUser);
+            //CheckChangeRoleLogs();
         }
         
-        public void CheckChangeRoleLogs()
+        public string Read()
         {
-            Console.WriteLine(CurrentUser.Logs);
+            return System.IO.File.ReadAllText("mem.json");
         }
         
+        public void Delete()
+        {
+            docs.Remove(CurrDoc);
+            manager.WriteCollection(docs,"mem1.json");
+            if(System.IO.File.Exists("C:/Users/pavel/source/repos/OOP_Lab2/OOP_Lab2/bin/Debug/net8.0"+CurrDoc.name))
+            {
+                System.IO.File.Delete("C:/Users/pavel/source/repos/OOP_Lab2/OOP_Lab2/bin/Debug/net8.0" + CurrDoc.name);
+            }
+            w_c.Delete(CurrDoc.FileId, "1Iiy2UToZeMaFiviRQRwIf8aZJoxncAws");
+            w_c.Delete(CurrDoc.FileId, "17gYVcgPxxoM4UsNsyq-i2uk8K9RGI4Co");
 
-        public void ChangeRole(User user)
+        }
+        public void ChangeRole(Document doc,List<User> Users,string role,string UserName)
         {
-            CurrentUser.CurrentStrategy = "read";
-            Manager.Subscribe(user);
-            Manager.Notify(user.Name + " mode changed to "+ CurrentUser.CurrentStrategy + " on document "+ CurrDoc.name+"\n");
+            doc.Set(UserName,role);
+            foreach (User us in Users)
+            {
+                if (UserName == us.Name)
+                {
+                    us.CurrentStrategy = role;
+                    Manager.Subscribe(us);
+                    Manager.Notify(us.Name + " mode changed to " + role + " on document " + CurrDoc.name + "\n");
+                    return;
+                }
+            }
+          
+            
         }
     }
 }

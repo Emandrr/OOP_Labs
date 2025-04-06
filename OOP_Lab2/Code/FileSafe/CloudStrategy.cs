@@ -13,9 +13,12 @@ namespace OOP_Lab2.FileSafe
         //WorkWithLocal w_l;
         CloudStorage Cstorage;
         Checker checker = new Checker();
-        public void Execute(CloudStorage cs,User usr,Document doc)
+        string folder;
+        
+        public void Execute(CloudStorage cs,User usr,Document doc,string folder)
         {
             w_c = new WorkWithCloud();
+            this.folder = folder;
             Cstorage = cs;
             Console.WriteLine("1 - Сохранить в облако, 2 - Список файлов в облаке, 3 - Поменять содержимое файла, 4 - Удалить файл");
             int choise = checker.CheckWithBorders(Console.ReadLine(),1,3, "1 - Сохранить в облако, 2 - Список файлов в облаке, 3 - Поменять содержимое файла, 4 - Удалить файл", 2);
@@ -32,7 +35,7 @@ namespace OOP_Lab2.FileSafe
                 }
                 if(choise == 2)
                 {
-                    CloudGetInfo();
+                    CloudGetInfo(folder);
                 }
                 if(choise == 3)
                 {
@@ -40,7 +43,7 @@ namespace OOP_Lab2.FileSafe
                 }
                 if(choise == 4)
                 {
-                    if (doc.Admin == usr)
+                    if (doc.UserName == usr.Name)
                     {
                         CloudDelete();
                     }
@@ -58,6 +61,7 @@ namespace OOP_Lab2.FileSafe
             string id = w_c.UploadFile(doc.name, doc.type, "2", "2");
             if (id == "-1") return -1;
             Cstorage.fileId = id;
+            doc.FileId = id;
             //Cstorage.name = doc.name;
             return 0;
         }
@@ -67,9 +71,9 @@ namespace OOP_Lab2.FileSafe
             string a = w_c.UpdateFile(doc.name, doc.type, "2", "2", Cstorage.fileId, 1);
             Cstorage.name = a;
         }
-        public void CloudGetInfo()
+        public void CloudGetInfo(string folder)
         {
-            var a = w_c.GetFiles();
+            var a = w_c.GetFiles(folder);
             foreach (var b in a)
             {
                 Console.WriteLine(b.Name + " " + b.Size + " " + b.Id);
@@ -78,7 +82,7 @@ namespace OOP_Lab2.FileSafe
 
         public void CloudDelete()
         {
-            w_c.Delete(Cstorage.fileId);
+            w_c.Delete(Cstorage.fileId, "1Iiy2UToZeMaFiviRQRwIf8aZJoxncAws");
             Cstorage.fileId = "0";
         }
     }

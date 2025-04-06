@@ -10,20 +10,30 @@ namespace OOP_Lab2
     {
         public string Name { get; set; }
 
-        public Document? TemporaryDocument { get; set; }
+        private Document? TemporaryDocument { get; set; }
         public string? CurrentStrategy { get; set; }
         IUserStrategy? Strategy { get; set; }
         
         public string Logs { get; set; }
-
+        public Settings editor;
         private UserMenu Menu;
-        public User(string strat,string name)
+
+        private List<Document> docs;
+        public User(string strat,string name,List<Document> docs)
         {
             this.Name = name;
             this.Logs = "";
             this.CurrentStrategy = strat;
             SetStrategy();
             Menu = new UserMenu(this);
+            if (editor == null)
+            {
+                editor = new Settings();
+                editor.FontSize = 14;
+                editor.Theme = "default";
+            }
+
+            this.docs = docs;
         }
         public void SetStrategy()
         {
@@ -45,9 +55,28 @@ namespace OOP_Lab2
         {
             Menu.Start();
         }
-        public void ExecuteStrategy()
+        public void ExecuteStrategy(Document doc)
         {
-            Strategy?.Execute(this,TemporaryDocument);
+            Strategy?.Execute(this,doc,this.editor,docs);
+        }
+        public void SetDocument(Document doc)
+        {
+            TemporaryDocument = doc;
+        }
+        public int CheckLogs()
+        {
+            string[] tmp = Logs.Split("\n");
+            
+            int res = 0;
+            foreach(string t in tmp)
+            {
+                if (t != "")
+                {
+                    res++;
+                    Console.WriteLine(t);
+                }
+            }
+            return res;
         }
     }
 }

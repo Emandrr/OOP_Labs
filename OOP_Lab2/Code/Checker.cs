@@ -75,7 +75,9 @@ namespace OOP_Lab2
         {
             foreach (Document doc in Users)
             {
-                if (doc.name == info)
+                string[] tmp = doc.name.Split(".");
+                string[] tmp1 = info.Split(".");
+                if (tmp[0] == tmp1[0])
                 {
 
                     //Console.WriteLine("Такой элемент уже есть !");

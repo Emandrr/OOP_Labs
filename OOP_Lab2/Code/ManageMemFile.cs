@@ -11,8 +11,12 @@ namespace OOP_Lab2
     {
         public List<T> GetCollection(string name)
         {
+            var settings = new JsonSerializerSettings
+            {
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+            };
             string json = File.ReadAllText(name);
-            List<T> hr = JsonConvert.DeserializeObject<List<T>>(json);
+            List<T> hr = JsonConvert.DeserializeObject<List<T>>(json,settings);
             return hr;
         }
         public void WriteCollection(List<T> us,string name)

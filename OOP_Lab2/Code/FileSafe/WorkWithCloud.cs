@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 using Google;
@@ -9,6 +11,7 @@ using Google.Apis.Auth.OAuth2;
 using Google.Apis.Auth.OAuth2.Flows;
 using Google.Apis.Auth.OAuth2.Responses;
 using Google.Apis.Drive.v3;
+using Google.Apis.Drive.v3.Data;
 using Google.Apis.Services;
 using Google.Apis.Upload;
 using Google.Apis.Util.Store;
@@ -59,21 +62,75 @@ namespace OOP_Lab2.FileSafe
         {
             DriveService service = GetService();
             string fileMime="";
-            var t = GetFiles();
+            var t = GetFiles(folder);
             foreach(var a in t)
             {
                 if (a.Name == fileName) return "-1";
             }
-            Stream file = new FileStream(fileName, FileMode.Open, FileAccess.Read);
+            Stream file= new FileStream("mem.json", FileMode.Open, FileAccess.Read); 
+            if (System.IO.File.Exists("C:/Users/pavel/source/repos/OOP_Lab2/OOP_Lab2/bin/Debug/net8.0"+fileName))
+            {
+                file = new FileStream(fileName, FileMode.Open, FileAccess.Read);
+            }
+            else
+            {
+                System.IO.File.WriteAllText(fileName, "");
+                file = new FileStream(fileName, FileMode.Open, FileAccess.Read);
+               // System.IO.File.Delete(fileName);
+                if (type == 0)
+                {
+                    fileMime = "text/plain";
+                }
+                if (type == 1)
+                {
+                    fileMime = "text/json";
+                }
+                if (type == 2)
+                {
+                    fileMime = "text/md";
+                }
+                if (type == 3)
+                {
+                    fileMime = "text/xml";
+                }
+                var driveFiler = new Google.Apis.Drive.v3.Data.File();
+                driveFiler.Name = fileName;
+                // driveFile.Description = "111";
+                driveFiler.MimeType = fileMime;
+                driveFiler.Parents = new string[] { folder };
+                //service.Files.Get
+                //
+                // service.Files.Update(driveFile, file, driveFile.MimeType,);
+                var requestr = service.Files.Create(driveFiler, file, driveFiler.MimeType);
+                requestr.Fields = "id";
+
+                var responser = requestr.Upload();
+                file.Close();
+                System.IO.File.Delete(fileName);
+                return requestr.ResponseBody.Id;
+            }
+            //Stream file = new FileStream(fileName, FileMode.Open, FileAccess.Read);
             if (type == 0)
             {
                 fileMime = "text/plain";
+            }
+            if (type == 1)
+            {
+                fileMime = "text/json";
+            }
+            if (type == 2)
+            {
+                fileMime = "text/md";
+            }
+            if (type == 3)
+            {
+                fileMime = "text/xml";
             }
             var driveFile = new Google.Apis.Drive.v3.Data.File();
             driveFile.Name = fileName;
            // driveFile.Description = "111";
             driveFile.MimeType = fileMime;
-            driveFile.Parents = new string[] { "1Iiy2UToZeMaFiviRQRwIf8aZJoxncAws" };
+            driveFile.Parents = new string[] { folder };
             //service.Files.Get
             //
            // service.Files.Update(driveFile, file, driveFile.MimeType,);
@@ -87,12 +144,12 @@ namespace OOP_Lab2.FileSafe
             return request.ResponseBody.Id;
         }
 
-        public IEnumerable<Google.Apis.Drive.v3.Data.File> GetFiles()
+        public IEnumerable<Google.Apis.Drive.v3.Data.File> GetFiles(string FolderId)
         {
             var service = GetService();
             
             var fileList = service.Files.List();
-            fileList.Q = $"mimeType!='application/vnd.google-apps.folder' and '{"1Iiy2UToZeMaFiviRQRwIf8aZJoxncAws"}' in parents";
+            fileList.Q = $"mimeType!='application/vnd.google-apps.folder' and '{FolderId}' in parents";
             fileList.Fields = "nextPageToken, files(id, name, size, mimeType)";
 
             var result = new List<Google.Apis.Drive.v3.Data.File>();
@@ -110,9 +167,15 @@ namespace OOP_Lab2.FileSafe
 
         return result;
         }
+        public string GetFileText(string FolderId,string fileId)
+        {
+            var service = GetService();
+            var fileMetadata = service.Files.Get(fileId+"alt=media").Execute();
+            return "";
+        }
         public string UpdateFile(string fileName, int type, string folder, string fileDescription,string fileId, int choise )
         {
-            var t = GetFiles();
+            var t = GetFiles(folder);
             foreach (var a in t)
             {
                 if (a.Name == fileName) return "-1";
@@ -143,11 +206,20 @@ namespace OOP_Lab2.FileSafe
 
             return driveFile.Name;
         }
-        public void Delete(string fileId)
+        public void Delete(string fileId,string folder)
         {
             var service = GetService();
-            var command = service.Files.Delete(fileId);
-            var result = command.Execute();
+            var t = GetFiles(folder);
+            foreach (var a in t)
+            {
+                if (a.Id == fileId)
+                {
+                    var command = service.Files.Delete(fileId);
+                    var result = command.Execute();
+                }
+            }
+            //var command = service.Files.Delete(fileId);
+            //var result = command.Execute();
         }
     }
 }
