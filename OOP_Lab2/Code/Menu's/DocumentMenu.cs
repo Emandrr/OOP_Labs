@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Data.SqlTypes;
 using System.Diagnostics.Metrics;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
@@ -120,9 +121,13 @@ namespace OOP_Lab2.Menu_s
         }
         public void EditorMenu()
         {
+            bool flag1 = true;
             bool flag = true;
             int pos = 0;
+            int pos_r = 0;
+            int pos_l = 0;
             string txt="";
+            string buff="";
             while (true)
             {
                 if (flag) Console.Clear();
@@ -131,12 +136,12 @@ namespace OOP_Lab2.Menu_s
                         txt = s.Read();
                         Console.WriteLine(txt);
                     }
-                string output = "esc - выход,ctrl+1 - вниз,ctrl+2 вверх,ctrl+3 - влево,ctrl+4 вправо,ctrl+f - поиск слова";
+                string output = "esc - выход,ctrl+1 - вниз,ctrl+2 вверх,ctrl+3 - влево,ctrl+4 вправо,ctrl+f - поиск слова,shift+> выделить ";
                 
-                if (flag) Console.WriteLine(output);
+                if(flag)Console.WriteLine(output);
                 if (flag) pos = Console.GetCursorPosition().Top;
-               if(pos-2>0) Console.SetCursorPosition(0, pos-2);
-               else
+               if(flag&&pos-2>0) Console.SetCursorPosition(0, pos-2);
+               else if(flag)
                 {
                     Console.SetCursorPosition(0, pos - 1);
 
@@ -146,6 +151,7 @@ namespace OOP_Lab2.Menu_s
                     var k = Console.ReadKey();
                 if (k.Key == System.ConsoleKey.D2 && k.Modifiers == ConsoleModifiers.Control)
                 {
+                    pos_l = pos_r = 0;
                     flag = false;
                     //Clear(1);
                     if (Console.GetCursorPosition().Top > 0) Console.SetCursorPosition(Console.GetCursorPosition().Left, Console.GetCursorPosition().Top - 1);
@@ -155,8 +161,9 @@ namespace OOP_Lab2.Menu_s
                 //up
                 if (k.Key == System.ConsoleKey.D1 && k.Modifiers == ConsoleModifiers.Control)
                 {
+                    pos_l = pos_r = 0;
                     flag = false;
-                    if (Console.GetCursorPosition().Top < pos) Console.SetCursorPosition(Console.GetCursorPosition().Left, Console.GetCursorPosition().Top + 1);
+                    if (Console.GetCursorPosition().Top < pos-2) Console.SetCursorPosition(Console.GetCursorPosition().Left, Console.GetCursorPosition().Top + 1);
                     //Clear(1);
                     //Console.Clear();
                 }
@@ -170,6 +177,7 @@ namespace OOP_Lab2.Menu_s
                 //up
                 if (k.Key == System.ConsoleKey.D4 && k.Modifiers == ConsoleModifiers.Control)
                 {
+                    pos_l = pos_r = 0;
                     if (Console.GetCursorPosition().Left < 170) Console.SetCursorPosition(Console.GetCursorPosition().Left + 1, Console.GetCursorPosition().Top);
                     //Clear(1);
                     flag = false;
@@ -177,6 +185,7 @@ namespace OOP_Lab2.Menu_s
                 }
                 if(k.Key == System.ConsoleKey.F && k.Modifiers == ConsoleModifiers.Control)
                 {
+                    pos_l = pos_r = 0;
                     Console.SetCursorPosition(0, pos);
                     output = "-1 - выход, введенная строка и enter - показ";
                     Console.WriteLine(output);
@@ -202,12 +211,25 @@ namespace OOP_Lab2.Menu_s
                             Console.WriteLine(output);
                         }
                     }
-                    if(k.Key == System.ConsoleKey.RightArrow && k.Modifiers == ConsoleModifiers.Control)
-                    {
-                        if (Console.GetCursorPosition().Left < 170) Console.SetCursorPosition(Console.GetCursorPosition().Left + 1, Console.GetCursorPosition().Top);
-                        SetColor(txt);
-                        flag = false;
-                    }
+                    
+                }
+                if (k.Key == System.ConsoleKey.RightArrow && k.Modifiers == ConsoleModifiers.Shift)
+                {
+                    if (Console.GetCursorPosition().Left < 170) Console.SetCursorPosition(Console.GetCursorPosition().Left + 1, Console.GetCursorPosition().Top);
+                    SetRight(ref txt,output,pos,ref pos_r,ref pos_l,ref buff);
+                    flag1 = false;
+                    flag = false;
+                }
+                if (k.Key == System.ConsoleKey.LeftArrow && k.Modifiers == ConsoleModifiers.Shift)
+                {
+                    if (Console.GetCursorPosition().Left >0) Console.SetCursorPosition(Console.GetCursorPosition().Left -1 , Console.GetCursorPosition().Top);
+                    SetLeft(ref txt, output, pos, ref pos_r, ref pos_l, ref buff);
+                    flag1 = false;
+                    flag = false;
+                }
+                if((k.KeyChar>=97 && k.KeyChar <=122 )|| (k.KeyChar >= 65 && k.KeyChar <= 90))
+                {
+                    if (strat is AdminStrategy s) s.ModifyUp(ref txt,Console.GetCursorPosition().Top, Console.GetCursorPosition().Left, k.KeyChar);
                 }
                 if (k.Key == System.ConsoleKey.Escape)
                 {
@@ -219,10 +241,53 @@ namespace OOP_Lab2.Menu_s
                 // return;
             }
         }
-        public void SetColor(string txt)
+        public void SetRight(ref string txt,string ouput,int pos,ref int p,ref int l, ref string buff)
         {
             string[] tmp = txt.Split("\n");
-
+            int pos1 = Console.GetCursorPosition().Top;
+            int pos2 = Console.GetCursorPosition().Left;
+            Console.SetCursorPosition(0, pos+1);
+            if (buff.Length >= 1) Clear(1);
+            if (l > 0)
+            {
+                l--;
+                buff =buff.Remove(0);
+            }
+            else
+            {
+                if (pos1 - 1 > -1 && pos2 - 1 <= tmp[pos1 - 1].Length - 1) buff += tmp[pos1 - 1][pos2 - 1];
+                p++;
+            }
+            
+            Console.SetCursorPosition(0, pos);
+           // Clear(1);
+            
+            Console.Write(buff);
+            Console.SetCursorPosition(pos2,pos1);
+        }
+        public void SetLeft(ref string txt, string ouput, int pos, ref int p, ref int l, ref string buff)
+        {
+            string[] tmp = txt.Split("\n");
+            int pos1 = Console.GetCursorPosition().Top;
+            int pos2 = Console.GetCursorPosition().Left;
+            Console.SetCursorPosition(0, pos+1);
+            if (buff.Length >= 1) Clear(1);
+            //Console.Write(tmp[pos1 - 1][pos2 - 1]);
+            if (p > 0)
+            {
+                p--;
+               buff =  buff.Remove(buff.Length-1);
+            }
+            else
+            {
+              if(pos1-1>-1 && pos2 - 1 <= tmp[pos1-1].Length-1)  buff += tmp[pos1 - 1][pos2 - 1];
+                l++;
+            }
+            //Clear(1);
+            Console.SetCursorPosition(0, pos);
+           
+            Console.Write(buff);
+            Console.SetCursorPosition(pos2, pos1);
         }
         public void ReaderMenu()
         {
