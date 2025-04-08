@@ -9,30 +9,18 @@ namespace OOP_Lab2.FileSafe
 {
     class WorkWithLocal
     {
-        public void Create(string name,string content,int type)
-        {   if (type == 0) name += ".txt";
-            if (type == 1) name += ".json";
-            if (type == 2) name += ".xml";
-            if (type == 3) name += ".md";
+        public void Create(string name,string content)
+        {   
             File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory+name, content);
         }
         public void Delete(string name)
         {
            
-            File.Delete(AppDomain.CurrentDomain.BaseDirectory + name);
+            if(File.Exists(AppDomain.CurrentDomain.BaseDirectory + name))File.Delete(AppDomain.CurrentDomain.BaseDirectory + name);
         }
-        public void Update(string nameOne,int choise,int type)
+        public void Update(string name, string content)
         {
-            string name = "";
-            if (choise == 1)
-            {
-                name = Console.ReadLine();
-                string context = File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory+nameOne);
-                Delete(nameOne);
-                Create(name,context,type);
-            }
-
-
+            File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + name, content);
         }
 
     }

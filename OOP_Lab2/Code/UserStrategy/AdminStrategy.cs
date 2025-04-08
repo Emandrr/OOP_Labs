@@ -20,15 +20,17 @@ namespace OOP_Lab2.UserStrategy
         List<Document> docs;
         ManageMemFile<Document> manager = new ManageMemFile<Document>();
         WorkWithCloud w_c = new WorkWithCloud();
+        WorkWithLocal w_l = new WorkWithLocal();
         public void Execute(User user,Document doc, Settings set,List<Document> d)
         {
             Manager = new EventManager();
             CurrDoc = doc;
             CurrentUser = user;
             menu = new DocumentMenu("admin",this,CurrDoc,set);
-            menu.AdminMenu();
             settings = set;
             docs = d;
+            menu.AdminMenu();
+           
             //ChangeRole(CurrentUser);
             //CheckChangeRoleLogs();
         }
@@ -47,7 +49,7 @@ namespace OOP_Lab2.UserStrategy
                 System.IO.File.Delete("C:/Users/pavel/source/repos/OOP_Lab2/OOP_Lab2/bin/Debug/net8.0" + CurrDoc.name);
             }
             w_c.Delete(CurrDoc.FileId, "1Iiy2UToZeMaFiviRQRwIf8aZJoxncAws");
-            w_c.Delete(CurrDoc.FileId, "17gYVcgPxxoM4UsNsyq-i2uk8K9RGI4Co");
+            w_c.Delete(CurrDoc.SysFileId, "17gYVcgPxxoM4UsNsyq-i2uk8K9RGI4Co");
 
         }
         public void ModifyUp(ref string text,int a,int b,string c)
@@ -77,7 +79,7 @@ namespace OOP_Lab2.UserStrategy
                 {
 
                     for (int i = 0; i < b - 1; ++i) t1 += tmp[a][i];
-                    if (c.Length > 1 && b - 1 > 0) t1 += tmp[a][b - 1];
+                    if (c.Length>0 && b - 1 >= 0) t1 += tmp[a][b - 1];
                     for (int i = b; i < tmp[a].Length; ++i) t2 += tmp[a][i];
                     text = "";
                     //int l = 0;
@@ -132,6 +134,19 @@ namespace OOP_Lab2.UserStrategy
             }
           
             
+        }
+        public void SaveLocal(string text)
+        {
+            w_l.Create(CurrDoc.name,text);
+        }
+        public void SaveCloud(string text)
+        {
+            w_l.Create(CurrDoc.name, text);
+            CurrDoc.SetText(text);
+           string outp= w_c.UploadFile(CurrDoc.name,CurrDoc.type, "1Iiy2UToZeMaFiviRQRwIf8aZJoxncAws","");
+            if (outp == "-1") w_c.UpdateFile(CurrDoc.name, CurrDoc.type, "1Iiy2UToZeMaFiviRQRwIf8aZJoxncAws", "", CurrDoc.FileId);
+            else CurrDoc.FileId = outp;
+            w_l.Delete(CurrDoc.name);
         }
     }
 }

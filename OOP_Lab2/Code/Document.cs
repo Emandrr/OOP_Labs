@@ -22,9 +22,11 @@ namespace OOP_Lab2
         public int type { get; set; }
         private CloudStorage Cstorage;
         private LocalStorage Lstorage;
-        public string FileId = "0"; 
+        public string FileId = "0";
+        public string SysFileId = "0";
         WorkWithCloud w_c;
         WorkWithLocal w_l;
+        private string text;
         CloudStrategy CloudStr;
         public Document(User admin,string name,int type)
         {
@@ -37,6 +39,10 @@ namespace OOP_Lab2
             this.type = type;
             if (admin != null) UserName = admin.Name;
           
+        }
+        public void SetText(string text)
+        {
+            this.text = text;
         }
         public void ExecuteCloud(User usr)
         {
@@ -57,6 +63,11 @@ namespace OOP_Lab2
         {
             Roles[username] = role;
         }
+        public string GetText()
+        {
+            return text;
+        }
+       
         public void Connection(List<User> users)
         {
             Roles[UserName] = "admin";

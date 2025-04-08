@@ -19,7 +19,7 @@ namespace OOP_Lab2.FileSafe
         }
         public void LocalCreate(string name,int typem,string content)
         {
-            w_l.Create(name, content, typem);
+            w_l.Create(name, content);
         }
         public void LocalUpdate()
         {

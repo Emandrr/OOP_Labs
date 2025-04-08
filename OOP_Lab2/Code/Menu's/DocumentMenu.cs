@@ -12,6 +12,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
+using OOP_Lab2.FileSafe;
 
 namespace OOP_Lab2.Menu_s
 {
@@ -23,9 +24,12 @@ namespace OOP_Lab2.Menu_s
         Checker checker = new Checker();
         IUserStrategy strat;
         ManageMemFile<User> Manager = new ManageMemFile<User>();
+        ManageMemFile<Document> Manag = new ManageMemFile<Document>();
         Document Document;
         Settings set;
         CommandManager cmd;
+        WorkWithCloud cld = new WorkWithCloud();
+        WorkWithLocal cldd = new WorkWithLocal();
         public DocumentMenu(string role,IUserStrategy admin, Document document,Settings set)
         {
             this.RoleToShow = role;
@@ -88,6 +92,8 @@ namespace OOP_Lab2.Menu_s
                 else if (choise == 3)
                 {
                     if (strat is AdminStrategy s) s.Delete();
+                    Console.Clear();
+                    return;
                 }
                 else if (choise == -1)
                 {
@@ -169,7 +175,7 @@ namespace OOP_Lab2.Menu_s
                     var k = Console.ReadKey();
                 if (k.Key == System.ConsoleKey.Q && k.Modifiers == ConsoleModifiers.Control)
                 {
-                    ClearAll();
+                    Console.Clear();
                     while (true)
                     {
                         output = " 0 - сохранить локально, 1 - сохранить в облаке";
@@ -177,11 +183,27 @@ namespace OOP_Lab2.Menu_s
                         string inp = Console.ReadLine();
                         if(inp=="0")
                         {
-                            if (strat is AdminStrategy s) s.SaveLocal(Document,txt);
+                            Document.SetText(txt);
+                            cldd.Create(Document.name, txt);
+                            
+                            string outp = cld.UploadFile(Document.name, Document.type, "17gYVcgPxxoM4UsNsyq-i2uk8K9RGI4Co", "");
+                            if (outp == "-1") cld.UpdateFile(Document.name, Document.type, "17gYVcgPxxoM4UsNsyq-i2uk8K9RGI4Co", "", Document.FileId);
+                            else Document.SysFileId = outp;
+                            cldd.Delete(Document.name);
+                            strat.SaveLocal(txt);
+                            return;
                         }
                         if(inp=="1")
                         {
-                            if (strat is AdminStrategy s) s.SaveCloud(Document, txt);
+                            Document.SetText(txt);
+                            cldd.Create(Document.name, txt);
+                           
+                            string outp = cld.UploadFile(Document.name, Document.type, "17gYVcgPxxoM4UsNsyq-i2uk8K9RGI4Co", "");
+                            if (outp == "-1") cld.UpdateFile(Document.name, Document.type, "17gYVcgPxxoM4UsNsyq-i2uk8K9RGI4Co", "", Document.FileId);
+                            else Document.SysFileId = outp;
+                            cldd.Delete(Document.name);
+                            strat.SaveCloud(txt);
+                            return;
                         }
                         if(inp=="-1")
                         {
@@ -279,7 +301,7 @@ namespace OOP_Lab2.Menu_s
                     flag1 = false;
                     flag = false;
                 }
-                if((k.KeyChar>=97 && k.KeyChar <=122 )|| (k.KeyChar >= 65 && k.KeyChar <= 90) )
+                if((k.KeyChar>=97 && k.KeyChar <=122 )|| (k.KeyChar >= 65 && k.KeyChar <= 90) || (k.KeyChar>=33 && k.KeyChar<=176) )
                 {
                     if (strat is AdminStrategy s) s.ModifyUp(ref txt,Console.GetCursorPosition().Top, Console.GetCursorPosition().Left, k.KeyChar.ToString());
                     //Console.Write(k.KeyChar);
@@ -298,6 +320,7 @@ namespace OOP_Lab2.Menu_s
                     Console.WriteLine(txt);
                     Console.WriteLine(output);
                     pos++;
+                    pos1++;
                     Console.SetCursorPosition(0, pos1);
                     flag = false;
                 }
@@ -309,12 +332,12 @@ namespace OOP_Lab2.Menu_s
                     if (pos2== 0)
                     {
                         if (strat is AdminStrategy s) s.RemoveString(ref txt, Console.GetCursorPosition().Top, Console.GetCursorPosition().Left);
-                        pos1--;
+                        if(pos1>0)pos1--;
                     }
                     else
                     {
                         if (strat is AdminStrategy s) s.ModifyUp(ref txt, Console.GetCursorPosition().Top, Console.GetCursorPosition().Left, "");
-                        pos2--;
+                        if(pos2>0)pos2--;
                     }
 
 
@@ -480,6 +503,11 @@ namespace OOP_Lab2.Menu_s
                 {
                     buff += " ";
 
+                    l++;
+                }
+                else if(pos1==0)
+                {
+                    buff += tmp[pos1][pos2];
                     l++;
                 }
             }

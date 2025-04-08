@@ -4,7 +4,9 @@ using OOP_Lab2.FileSafe;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
@@ -53,9 +55,9 @@ namespace OOP_Lab2
                     //Worker.Add(Users, name);
 
                     //Clear(4);
-                    output = "0 - txt, 1 - json, 2 - md, 3 - xml";
+                    output = "0 - txt, 1 - json, 2 - md, 3 - xml,4 - rtf";
                     Console.WriteLine(output);
-                    choise = checker.CheckWithBorders(Console.ReadLine(), 0, 3, output, 2);
+                    choise = checker.CheckWithBorders(Console.ReadLine(), 0,4 , output, 2);
                     Document doc =new Document(null,null,0);
                     if (choise == 0)
                     {
@@ -68,6 +70,8 @@ namespace OOP_Lab2
                         doc = new Document(currUser, name + ".json", 1);
                         docs.Add(doc);
                         currUser.SetDocument(doc);
+                       //string json = JsonConvert.SerializeObject("s", Formatting.Indented);
+                        //doc.SetText(json);
                     }
                     if (choise == 2)
                     {
@@ -85,11 +89,12 @@ namespace OOP_Lab2
                     currUser.CurrentStrategy = "admin";
                     currUser.SetStrategy();
                     manager.WriteCollection(docs, "mem1.json");
-                    w_c.UploadFile(doc.name, doc.type, "17gYVcgPxxoM4UsNsyq-i2uk8K9RGI4Co", null);
-                    currUser.ExecuteStrategy(doc);
-                    
+                    doc.SysFileId = w_c.UploadFile(doc.name, doc.type, "17gYVcgPxxoM4UsNsyq-i2uk8K9RGI4Co", null);
+                    currUser.ExecuteStrategy(doc,docs);
+                    manager.WriteCollection(docs, "mem1.json");
+
                 }
-                else if (choise==1)
+                else if (choise==1&& docs.Count>0)
                 {
                     output = "Список всех файлов :";
                     Console.WriteLine(output);
@@ -106,7 +111,7 @@ namespace OOP_Lab2
                         Console.WriteLine("Ошибка такого файла нет " + output);
                         DocName = Console.ReadLine();
                     }
-                    Clear(7);
+                    Console.Clear();
                     Document doc = new Document(null,null,1);
                     foreach (Document dc in docs)
                     {
@@ -115,8 +120,9 @@ namespace OOP_Lab2
                     //Console.WriteLine(doc.name);
                     currUser.CurrentStrategy = doc.CheckRole(currUser.Name);
                     currUser.SetStrategy();
-                    currUser.ExecuteStrategy(doc);
-                    
+                    currUser.ExecuteStrategy(doc,docs);
+                    manager.WriteCollection(docs, "mem1.json");
+
                 }
                 else if(choise==2)
                 {
@@ -128,7 +134,7 @@ namespace OOP_Lab2
                         choise = checker.CheckWithBorders(Console.ReadLine(), -1, -1, output, 2);
                         if (choise == -1) break;
                     }
-                    Clear(cnt+5);
+                    Console.Clear();
                 }
                 else if (choise == -1)
                 {
@@ -141,6 +147,7 @@ namespace OOP_Lab2
                     return;
 
                 }
+                if (docs.Count == 0) Console.Clear();
                 Console.WriteLine(currUser.Name);
                 set.SetConsoleFont(14);
             }

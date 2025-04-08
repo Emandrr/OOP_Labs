@@ -68,7 +68,7 @@ namespace OOP_Lab2.FileSafe
         public void CloudUpdate(Document doc)
         {
 
-            string a = w_c.UpdateFile(doc.name, doc.type, "2", "2", Cstorage.fileId, 1);
+            string a = w_c.UpdateFile(doc.name, doc.type, "2", "2", Cstorage.fileId);
             Cstorage.name = a;
         }
         public void CloudGetInfo(string folder)

@@ -55,9 +55,10 @@ namespace OOP_Lab2
         {
             Menu.Start();
         }
-        public void ExecuteStrategy(Document doc)
+        public void ExecuteStrategy(Document doc,List<Document> docss)
         {
-            Strategy?.Execute(this,doc,this.editor,docs);
+            
+            Strategy?.Execute(this,doc,this.editor,docss);
         }
         public void SetDocument(Document doc)
         {

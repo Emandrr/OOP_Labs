@@ -25,8 +25,8 @@ namespace OOP_Lab2.FileSafe
         {
             var tokenResponse = new TokenResponse
             {
-                AccessToken = "ya29.a0AeXRPp6xlt4YSVv5wseFTXoiuawNehhHS93qwu70TKGfGLSsWg-LkGkWDnEgYU7gx9hk7J3HvNRy2TtQekTdBXaNDzf5uYcJJdXS90nQ0QafTU-W2JOU7tzKFwrJKrFziYFixcyu_0hRX4HhSeYIdkuAVgphvQmjOLBZJeCVaCgYKAcgSARASFQHGX2MiuZ6gjojGTAjKrPfZcyKjpA0175",
-                RefreshToken = "1//04Dn9iVKs6zB4CgYIARAAGAQSNwF-L9IrODNqFmWQIyffxis7osfiY9QFSmQTv7ciXMrgaotfSZZZ6s16M86UBnhrgeuZTt4B26M",
+                AccessToken = "ya29.a0AZYkNZgFtrEGQuiENFrZrKI8AZ0hwQ41FukU6KsmyNc9hX6xGoA1ZRzJ20C6ObxSsHnXosS6PvcivlmzJ8PoEpzz-I-gN9uk04VuBZqYNSkv8Vf7RkGQsWkcK3UB6ayHxPA781qhrWs37bfHxbI5bhgFXOoscMD7R32ctBuiaCgYKAesSARASFQHGX2MiKQh1awinzssbNNh0MaDRWA0175",
+                RefreshToken = "1//04qKWPCiQQGndCgYIARAAGAQSNwF-L9IrkgiF7DM4sl6TREWRXM9NIu7zC2q1P77XXmYum9oDJoFbbDQ7TWTmU4CmRWI4tGqzMZ4",
             };
 
 
@@ -74,6 +74,7 @@ namespace OOP_Lab2.FileSafe
             }
             else
             {
+                file.Close();
                 System.IO.File.WriteAllText(fileName, "");
                 file = new FileStream(fileName, FileMode.Open, FileAccess.Read);
                // System.IO.File.Delete(fileName);
@@ -144,7 +145,7 @@ namespace OOP_Lab2.FileSafe
             var response = request.Upload();
             if (response.Status != UploadStatus.Completed)
                 throw response.Exception;
-
+            file.Close();
             return request.ResponseBody.Id;
         }
 
@@ -192,12 +193,12 @@ namespace OOP_Lab2.FileSafe
             }
             
         }
-        public string UpdateFile(string fileName, int type, string folder, string fileDescription,string fileId, int choise )
+        public string UpdateFile(string fileName, int type, string folder, string fileDescription,string fileId)
         {
             var t = GetFiles(folder);
             foreach (var a in t)
             {
-                if (a.Name == fileName) return "-1";
+                if (a.Name == fileName) fileId = a.Id;
             }
             DriveService service = GetService();
             string fileMime = "";
@@ -227,8 +228,8 @@ namespace OOP_Lab2.FileSafe
             //driveFile.Description = "111";
             driveFile.MimeType = fileMime;
             var fileMetadata = service.Files.Get(fileId).Execute();
-            if (choise == 0) driveFile.Name = fileMetadata.Name;
-            else driveFile.Name = Console.ReadLine()+".txt";
+            driveFile.Name = fileMetadata.Name;
+            //else driveFile.Name = Console.ReadLine()+".txt";
                 //driveFile.addParents = new string[] { "1YjkitbfUoFkCHissqIBfZR9UTjfuqxQ8" };
                 //
 
@@ -238,7 +239,7 @@ namespace OOP_Lab2.FileSafe
             var response = request.Upload();
             if (response.Status != UploadStatus.Completed)
                 throw response.Exception;
-
+            file.Close();
             return driveFile.Name;
         }
         public void Delete(string fileId,string folder)
