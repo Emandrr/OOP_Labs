@@ -81,7 +81,7 @@ namespace OOP_Lab2
                         docs.Add(doc);
                         currUser.SetDocument(doc);
                     }
-                    Clear(6);
+                    ClearAll();
                     currUser.CurrentStrategy = "admin";
                     currUser.SetStrategy();
                     manager.WriteCollection(docs, "mem1.json");
@@ -144,6 +144,17 @@ namespace OOP_Lab2
                 Console.WriteLine(currUser.Name);
                 set.SetConsoleFont(14);
             }
+        }
+        public void ClearAll()
+        {
+            int tp = Console.GetCursorPosition().Top;
+            for (int i = tp; i > -1; --i)
+            {
+                Console.SetCursorPosition(0, i);
+                Console.Write("\r");
+                Console.Write(new string(' ', Console.WindowWidth));
+            }
+            Console.SetCursorPosition(0, 0);
         }
         public void Clear(int count)
         {

@@ -35,7 +35,7 @@ namespace OOP_Lab2.UserStrategy
         
         public string Read()
         {
-            return System.IO.File.ReadAllText("mem.json");
+            return w_c.GetFileText("17gYVcgPxxoM4UsNsyq-i2uk8K9RGI4Co",CurrDoc.FileId);
         }
         
         public void Delete()
@@ -50,39 +50,72 @@ namespace OOP_Lab2.UserStrategy
             w_c.Delete(CurrDoc.FileId, "17gYVcgPxxoM4UsNsyq-i2uk8K9RGI4Co");
 
         }
-        public void ModifyUp(ref string text,int a,int b,char c)
+        public void ModifyUp(ref string text,int a,int b,string c)
         {
+            string t="";
+            
             string[] tmp = text.Split("\n");
-            if(a-1>tmp.Length)
+            if(a-1>tmp.Length-1)
             {
-                text += "\n";   
+                text += "\r\n";   
             }
             else
             {
-                if (b > tmp[a-1].Length)
-                {
-                    for(int i=0;i<b-1- tmp[a - 1].Length;++i)
-                    {
-                        tmp[a - 1] += " ";
-                    }
-                    tmp[a - 1] += c;
-                }
-
                 string t1 = "";
                 string t2 = "";
-                for (int i = 0; i < b-1; ++i) t1 += tmp[a - 1][i];
-                for (int i = b; i < tmp[a-1].Length; ++i) t2 += tmp[a - 1][i];
-                text = "";
+                if (b > tmp[a].Length)
+                {
+                    int k = tmp[a].Length;
+                    for (int i = 0; i < b - 1 - k; ++i)
+                    {
+                        tmp[a] += " ";
+                    }
+                    //tmp[a] += c;
+                    t1 = tmp[a];
+                }
+                else
+                {
+
+                    for (int i = 0; i < b - 1; ++i) t1 += tmp[a][i];
+                    if (c.Length > 1 && b - 1 > 0) t1 += tmp[a][b - 1];
+                    for (int i = b; i < tmp[a].Length; ++i) t2 += tmp[a][i];
+                    text = "";
+                    //int l = 0;
+                    string ins = t1 + c + t2;
+                }
                 int l = 0;
-                foreach(string s in tmp)
+                text = "";
+                foreach (string s in tmp)
                 {
                  
-                    if (b > tmp[a - 1].Length && tmp[a - 1] == s) text += (s + "\n");
-                    else if(a-1==l) text += (t1 + c + t2 + "\n");
-                    else text += (s + "\n");
+                    //if (b-1 > tmp[a].Length && tmp[a] == s) text += (s);
+                    if(a==l) text += (t1 + c + t2);
+                    else if (b - 1 > tmp[a].Length && tmp[a] == s) text += (s);
+                    else text += (s);
+                    if (l != tmp.Length - 1) text += "\n";
                     ++l;
                 }
             }
+        }
+        public void RemoveString(ref string text, int a, int b)
+        {
+            string[] tmp = text.Split("\n");
+            text = "";
+            int l = 0;
+            foreach (string s in tmp)
+            {
+                string kk="";
+               if(s.Length!=0)kk = s.Remove(s.Length-1,1);
+                if (l == a - 1 && l + 1 < tmp.Length)
+                {
+                    text += (kk + tmp[l + 1]);
+                }
+                else if (l == a) continue;
+                else text += kk;
+                if (l != tmp.Length - 2) text += "\r\n";
+                ++l;
+            }
+            int y = 0;
         }
         public void ChangeRole(Document doc,List<User> Users,string role,string UserName)
         {

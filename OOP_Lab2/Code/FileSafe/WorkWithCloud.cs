@@ -126,6 +126,10 @@ namespace OOP_Lab2.FileSafe
             {
                 fileMime = "text/xml";
             }
+            if (type == 4)
+            {
+                fileMime = "text/rtf";
+            }
             var driveFile = new Google.Apis.Drive.v3.Data.File();
             driveFile.Name = fileName;
            // driveFile.Description = "111";
@@ -170,8 +174,23 @@ namespace OOP_Lab2.FileSafe
         public string GetFileText(string FolderId,string fileId)
         {
             var service = GetService();
-            var fileMetadata = service.Files.Get(fileId+"alt=media").Execute();
-            return "";
+            var request = service.Files.Get(fileId);
+            using (var stream = new MemoryStream())
+            {
+                request.Download(stream); // По умолчанию использует alt=media
+                stream.Position = 0;
+
+                // Для текстовых файлов:
+                using (var reader = new StreamReader(stream))
+                {
+                    string content = reader.ReadToEnd();
+                    return content;
+                }
+
+                // Для бинарных файлов:
+                // File.WriteAllBytes("output.png", stream.ToArray());
+            }
+            
         }
         public string UpdateFile(string fileName, int type, string folder, string fileDescription,string fileId, int choise )
         {
@@ -186,6 +205,22 @@ namespace OOP_Lab2.FileSafe
             if (type == 0)
             {
                 fileMime = "text/plain";
+            }
+            if (type == 1)
+            {
+                fileMime = "text/json";
+            }
+            if (type == 2)
+            {
+                fileMime = "text/md";
+            }
+            if (type == 3)
+            {
+                fileMime = "text/xml";
+            }
+            if (type == 4)
+            {
+                fileMime = "text/rtf";
             }
             var driveFile = new Google.Apis.Drive.v3.Data.File();
             //driveFile.Name = fileName;
