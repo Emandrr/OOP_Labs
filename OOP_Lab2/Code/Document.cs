@@ -28,6 +28,9 @@ namespace OOP_Lab2
         WorkWithLocal w_l;
         private string text;
         CloudStrategy CloudStr;
+        public List<string> history; 
+        //public int FontSize { get; set; }
+        // public string Theme { get; set; }
         public Document(User admin,string name,int type)
         {
            if(admin!=null) this.Admin = admin;
@@ -38,6 +41,7 @@ namespace OOP_Lab2
             Roles = new Dictionary<string, string>();
             this.type = type;
             if (admin != null) UserName = admin.Name;
+            history = new List<string>();
           
         }
         public void SetText(string text)
@@ -67,7 +71,11 @@ namespace OOP_Lab2
         {
             return text;
         }
-       
+        public User GetAdmin()
+        {
+            return Admin;
+        }
+        
         public void Connection(List<User> users)
         {
             Roles[UserName] = "admin";

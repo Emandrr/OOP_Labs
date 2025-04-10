@@ -10,7 +10,7 @@ namespace OOP_Lab2.ChangeFormatAdapters
 {
     class CurrentToJSONAdapter
     {
-        public void Parse(AdminStrategy admin,WorkWithCloud w_c,Document document)
+        public void Parse(IUserStrategy admin,WorkWithCloud w_c,Document document)
         {
             document.type = 1;
             string[] tmp = document.name.Split(".");
@@ -23,10 +23,13 @@ namespace OOP_Lab2.ChangeFormatAdapters
                 else txt += s;
             }
             txt += ".json";
-            admin.Delete();
+            //admin.Delete();
+            if(admin is AdminStrategy adm)adm.Upload(txt);
+            if (admin is EditorStrategy ed) ed.Upload(txt);
             document.name = txt;
-            w_c.UploadFile(document.name,document.type, "17gYVcgPxxoM4UsNsyq-i2uk8K9RGI4Co","");
-            admin.SaveCloud(document.GetText());
+            
+           // w_c.UploadFile(document.name,document.type, "17gYVcgPxxoM4UsNsyq-i2uk8K9RGI4Co","");
+            //admin.SaveCloud(document.GetText());
         }
         
 

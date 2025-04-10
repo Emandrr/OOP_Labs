@@ -11,7 +11,7 @@ namespace OOP_Lab2.ChangeFormatAdapters
 {
     class CurrentToRTFAdapter
     {
-        public void Parse(AdminStrategy admin, WorkWithCloud w_c, Document document)
+        public void Parse(IUserStrategy admin, WorkWithCloud w_c, Document document)
         {
             if (document.type == 2)
             {
@@ -30,12 +30,14 @@ namespace OOP_Lab2.ChangeFormatAdapters
             {
                 if (i == tmp.Length - 1) continue;
                 else txt += s;
+                ++i;
             }
             txt += ".rtf";
-            admin.Delete();
+            if (admin is AdminStrategy adm) adm.Upload(txt);
+            if (admin is EditorStrategy ed) ed.Upload(txt);
             document.name = txt;
-            w_c.UploadFile(document.name, document.type, "17gYVcgPxxoM4UsNsyq-i2uk8K9RGI4Co", "");
-            admin.SaveCloud(document.GetText());
+            //w_c.UploadFile(document.name, document.type, "17gYVcgPxxoM4UsNsyq-i2uk8K9RGI4Co", "");
+            //admin.SaveCloud(document.GetText());
         }
         public static string FromMarkdownToRtf(string markdown)
         {

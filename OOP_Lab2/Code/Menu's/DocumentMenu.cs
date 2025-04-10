@@ -13,6 +13,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 using OOP_Lab2.FileSafe;
+using OOP_Lab2.StyleDecorator;
 
 namespace OOP_Lab2.Menu_s
 {
@@ -28,8 +29,13 @@ namespace OOP_Lab2.Menu_s
         Document Document;
         Settings set;
         CommandManager cmd;
-        WorkWithCloud cld = new WorkWithCloud();
+       // WorkWithCloud cld = new WorkWithCloud();
         WorkWithLocal cldd = new WorkWithLocal();
+        MarkdownDecorator md;
+        XmlDecorator xd;
+        RtfDecorator rd;
+        JsonDecorator jd;
+        TxtDecorator td;
         public DocumentMenu(string role,IUserStrategy admin, Document document,Settings set)
         {
             this.RoleToShow = role;
@@ -37,15 +43,22 @@ namespace OOP_Lab2.Menu_s
             Document = document;
             this.set = set;
             cmd = new CommandManager();
+            md = new MarkdownDecorator(Document);
+            xd = new XmlDecorator(Document);
+            rd = new RtfDecorator(Document);
+            jd = new JsonDecorator(Document);
+            td = new TxtDecorator(Document);
+
         }
         public void AdminMenu()
         {
             while (true)
             {
                 set.SetConsoleFont(14);
+                set.SetConsoleTheme("Campbell");
                 Users = Manager.GetCollection("mem.json");
                 Console.WriteLine(Document.name);
-                string output = "0 - Поменять роль у пользователя, 1 - Редактировать файл, 2 - Просмотреть файл, 3 - Удалить файл, -1 - Выход";
+                string output = "0 - Поменять роль у пользователя, 1 - Редактировать файл, 2 - Просмотреть файл,  3 - Удалить файл, 4 - поменять расширение файла,-1 - Выход из документа";
                 Console.WriteLine(output);
                 int choise = checker.CheckWithBorders(Console.ReadLine(), -1, 4, output, 2);
                 if (choise == 0)
@@ -95,6 +108,23 @@ namespace OOP_Lab2.Menu_s
                     Console.Clear();
                     return;
                 }
+                
+                else if(choise==4)
+                {
+                    ChangeFormatMenu();
+                }
+               /* else if(choise==5)
+                {
+                    Console.Clear();
+                    foreach (string s in Document.history)
+                    {
+                        Console.WriteLine("change");
+                        Console.WriteLine(s);
+                    }
+                    Console.WriteLine("нажмите любую кнопку чтобы продолить");
+                    string a = Console.ReadLine();
+                    Console.Clear();
+                }*/
                 else if (choise == -1)
                 {
                     Console.Clear();
@@ -104,6 +134,36 @@ namespace OOP_Lab2.Menu_s
                 //set.SetConsoleFont(14);
                 //Console.WriteLine(Document.name);
             }
+        }
+        public void ChangeFormatMenu()
+        {
+           
+            string[] s = { "txt", "json", "md", "xml","rtf" };
+            List<string> outpr = new List<string>();
+            int k = 0;
+            foreach(string str in s )
+            {
+                if (Document.type != k) outpr.Add(str);
+                k++;
+            }
+            k = 0;
+            Console.WriteLine("Выберете доступный формат");
+            foreach(string s1 in outpr)
+            {
+                Console.Write(k.ToString()+" - "+s1+" ");
+                k++;
+            }
+            Console.Write("\r\n");
+           int inpp = checker.CheckWithBorders(Console.ReadLine(),0,k-1, "Выберете доступный формат",2);
+            if (strat is AdminStrategy sq)
+            {
+                string t =sq.Read();
+                Document.SetText(t);
+                sq.ChangeFormat(outpr[inpp]);
+            }
+            Console.Clear();
+           
+            
         }
         public void ClearBuff(ref int p, ref int l, ref string buff,int pos,int p1,int p2)
         {
@@ -148,11 +208,13 @@ namespace OOP_Lab2.Menu_s
             int pos_l = 0;
             string txt="";
             string buff="";
-            if (strat is AdminStrategy s1) txt = s1.Read();
+            //Console.Clear();
+            //Console.WriteLine(Document.name);
+             txt = strat.Read();
             //Console.WriteLine(txt);
             int apos = Console.GetCursorPosition().Top;
             if (apos - 2 > 0) Console.SetCursorPosition(0, apos - 1);
-            cmd.Save(new Frame(txt, Console.GetCursorPosition().Left, Console.GetCursorPosition().Top, "esc - выход,ctrl+1 - вниз,ctrl+2 вверх,ctrl+3 - влево,ctrl+4 вправо,ctrl+f - поиск слова,shift+>,shift+< выделить, ctrl+5 вставить пробел,ctr+backspace - удалить символ, ctrl+x отмена, ctrl+o отмена отмены, ctrl+b - копировать,ctrl+v вставить, ctrl+t - удалить выделенную часть,ctrl+q сохранить файл и выход "));
+            cmd.Save(new Frame(txt, Console.GetCursorPosition().Left, Console.GetCursorPosition().Top, "esc - выход,ctrl+1 - вниз,ctrl+2 вверх,ctrl+3 - влево,ctrl+4 вправо,ctrl+f - поиск слова,shift+>,shift+< выделить, ctrl+5 вставить пробел,ctr+backspace - удалить символ, ctrl+x отмена, ctrl+o отмена отмены, ctrl+b - копировать,ctrl+v вставить, ctrl+t - удалить выделенную часть,ctrl+q сохранить файл и выход,ctrl+u смена темы,ctrl+h -история документа"));
             while (true)
             {
                 if (flag) Console.Clear();
@@ -160,14 +222,14 @@ namespace OOP_Lab2.Menu_s
                     {
                         Console.WriteLine(txt);
                     }
-                string output = "esc - выход,ctrl+1 - вниз,ctrl+2 вверх,ctrl+3 - влево,ctrl+4 вправо,ctrl+f - поиск слова,shift+>,shift+< выделить, ctrl+5 вставить пробел,ctr+backspace - удалить символ, ctrl+x отмена, ctrl+o отмена отмены, ctrl+b - копировать,ctrl+v вставить, ctrl+t - удалить выделенную часть,ctrl+q сохранить файл и выход ";
+                string output = "esc - выход,ctrl+1 - вниз,ctrl+2 вверх,ctrl+3 - влево,ctrl+4 вправо,ctrl+f - поиск слова,shift+>,shift+< выделить, ctrl+5 вставить пробел,ctr+backspace - удалить символ, ctrl+x отмена, ctrl+o отмена отмены, ctrl+b - копировать,ctrl+v вставить, ctrl+t - удалить выделенную часть,ctrl+q сохранить файл и выход,ctrl+u смена темы,ctrl+h -история документа ";
                 
                 if(flag)Console.WriteLine(output);
                 if (flag) pos = Console.GetCursorPosition().Top;
-               if(flag&&pos-3>=0) Console.SetCursorPosition(0, pos-3);
+               if(flag&&pos-3>=0) Console.SetCursorPosition(0, pos-4);
                else if(flag)
                 {
-                    Console.SetCursorPosition(0, pos - 3);
+                    Console.SetCursorPosition(0, pos - 4);
 
                 }
 
@@ -184,32 +246,19 @@ namespace OOP_Lab2.Menu_s
                         if(inp=="0")
                         {
                             Document.SetText(txt);
-                            cldd.Create(Document.name, txt);
-                            
-                            string outp = cld.UploadFile(Document.name, Document.type, "17gYVcgPxxoM4UsNsyq-i2uk8K9RGI4Co", "");
-                            if (outp == "-1") cld.UpdateFile(Document.name, Document.type, "17gYVcgPxxoM4UsNsyq-i2uk8K9RGI4Co", "", Document.FileId);
-                            else Document.SysFileId = outp;
-                            cldd.Delete(Document.name);
                             strat.SaveLocal(txt);
+                            Document.history.Add(txt);
                             return;
                         }
                         if(inp=="1")
                         {
                             Document.SetText(txt);
                             cldd.Create(Document.name, txt);
-                           
-                            string outp = cld.UploadFile(Document.name, Document.type, "17gYVcgPxxoM4UsNsyq-i2uk8K9RGI4Co", "");
-                            if (outp == "-1") cld.UpdateFile(Document.name, Document.type, "17gYVcgPxxoM4UsNsyq-i2uk8K9RGI4Co", "", Document.FileId);
-                            else Document.SysFileId = outp;
-                            cldd.Delete(Document.name);
                             strat.SaveCloud(txt);
+                            Document.history.Add(txt);
                             return;
                         }
-                        if(inp=="-1")
-                        {
-                            ClearAll();
-                            return;
-                        }
+                        
                     }
                 }
                     if (k.Key == System.ConsoleKey.D2 && k.Modifiers == ConsoleModifiers.Control)
@@ -301,14 +350,19 @@ namespace OOP_Lab2.Menu_s
                     flag1 = false;
                     flag = false;
                 }
-                if((k.KeyChar>=97 && k.KeyChar <=122 )|| (k.KeyChar >= 65 && k.KeyChar <= 90) || (k.KeyChar>=33 && k.KeyChar<=176) )
+                if((k.KeyChar>=97 && k.KeyChar <=122 )|| (k.KeyChar >= 65 && k.KeyChar <= 90) || (k.KeyChar>=33 && k.KeyChar<=126) )
                 {
-                    if (strat is AdminStrategy s) s.ModifyUp(ref txt,Console.GetCursorPosition().Top, Console.GetCursorPosition().Left, k.KeyChar.ToString());
-                    //Console.Write(k.KeyChar);
-                    flag = false;
-                    //Console.Write(k.KeyChar);
                     int pos1 = Console.GetCursorPosition().Left;
                     int pos2 = Console.GetCursorPosition().Top;
+                    if (strat is AdminStrategy s) s.ModifyUp(ref txt,Console.GetCursorPosition().Top, Console.GetCursorPosition().Left, k.KeyChar.ToString());
+                    if (strat is EditorStrategy sq) sq.ModifyUp(ref txt, Console.GetCursorPosition().Top, Console.GetCursorPosition().Left, k.KeyChar.ToString());
+                    //Console.Write(k.KeyChar);
+                    flag = false;
+                    Console.Clear();
+                    Console.WriteLine(txt);
+                    Console.WriteLine(output);
+                    //Console.Write(k.KeyChar);
+                    Console.SetCursorPosition(pos1, pos2);
                     
                 }
                 if(k.Key == System.ConsoleKey.D5 && k.Modifiers == ConsoleModifiers.Control)
@@ -316,6 +370,7 @@ namespace OOP_Lab2.Menu_s
                     //Console.Write('\n');
                     int pos1 = Console.GetCursorPosition().Top;
                     if (strat is AdminStrategy s) s.ModifyUp(ref txt, Console.GetCursorPosition().Top, Console.GetCursorPosition().Left, "\r\n");
+                    if (strat is EditorStrategy sq) sq.ModifyUp(ref txt, Console.GetCursorPosition().Top, Console.GetCursorPosition().Left, "\r\n");
                     Console.Clear();
                     Console.WriteLine(txt);
                     Console.WriteLine(output);
@@ -332,12 +387,14 @@ namespace OOP_Lab2.Menu_s
                     if (pos2== 0)
                     {
                         if (strat is AdminStrategy s) s.RemoveString(ref txt, Console.GetCursorPosition().Top, Console.GetCursorPosition().Left);
-                        if(pos1>0)pos1--;
+                        if (strat is EditorStrategy sq) sq.RemoveString(ref txt, Console.GetCursorPosition().Top, Console.GetCursorPosition().Left);
+                        if (pos1>0)pos1--;
                     }
                     else
                     {
                         if (strat is AdminStrategy s) s.ModifyUp(ref txt, Console.GetCursorPosition().Top, Console.GetCursorPosition().Left, "");
-                        if(pos2>0)pos2--;
+                        if(strat is EditorStrategy sq) sq.ModifyUp(ref txt, Console.GetCursorPosition().Top, Console.GetCursorPosition().Left, "");
+                        if (pos2>0)pos2--;
                     }
 
 
@@ -364,7 +421,11 @@ namespace OOP_Lab2.Menu_s
                     ClearBuff(ref pos_l, ref pos_r, ref buff, pos, Console.GetCursorPosition().Left, Console.GetCursorPosition().Top);
                     int pos1 = Console.GetCursorPosition().Top;
                     int pos2 = Console.GetCursorPosition().Left;
-                    if(protected_buffer!="")if (strat is AdminStrategy s) s.ModifyUp(ref txt, Console.GetCursorPosition().Top, Console.GetCursorPosition().Left, protected_buffer);
+                    if (protected_buffer != "")
+                    {
+                        if (strat is AdminStrategy s) s.ModifyUp(ref txt, Console.GetCursorPosition().Top, Console.GetCursorPosition().Left, protected_buffer);
+                        if (strat is EditorStrategy sq) sq.ModifyUp(ref txt, Console.GetCursorPosition().Top, Console.GetCursorPosition().Left, protected_buffer);
+                    }
                     flag = false;
                     Console.Clear();
                     Console.WriteLine(txt);
@@ -382,6 +443,7 @@ namespace OOP_Lab2.Menu_s
                     {
                         buff = buff.Remove(buff.Length-1);
                         if (strat is AdminStrategy s) s.ModifyUp(ref txt, Console.GetCursorPosition().Top, pos3, "");
+                        if (strat is EditorStrategy sq) sq.ModifyUp(ref txt, Console.GetCursorPosition().Top, pos3, "");
                         pos3--;
 
                     }
@@ -391,7 +453,8 @@ namespace OOP_Lab2.Menu_s
                         
                         buff = buff.Remove(buff.Length - 1);
                         if (strat is AdminStrategy s) s.ModifyUp(ref txt, Console.GetCursorPosition().Top, pos3, "");
-                       // pos3++;
+                        if (strat is EditorStrategy sq) sq.ModifyUp(ref txt, Console.GetCursorPosition().Top, pos3, "");
+                        // pos3++;
 
                     }
                     flag = false;
@@ -415,6 +478,25 @@ namespace OOP_Lab2.Menu_s
                     string ttxt = cmd.ReDo();
                     if (ttxt != "") txt = ttxt;
                     flag = false;
+                }
+                else if (k.Key == System.ConsoleKey.U && k.Modifiers == ConsoleModifiers.Control)
+                {
+                    ThemeMenu();
+                }
+                else if (k.Key == System.ConsoleKey.H && k.Modifiers == ConsoleModifiers.Control)
+                {
+                    if (Document.history is not null)
+                    {
+                        Console.Clear();
+                        foreach (string s in Document.history)
+                        {
+                            Console.WriteLine("change");
+                            Console.WriteLine(s);
+                        }
+                        Console.WriteLine("нажмите любую кнопку чтобы продолить");
+                        string a = Console.ReadLine();
+                        Console.Clear();
+                    }
                 }
                 else cmd.Save(new Frame(txt, Console.GetCursorPosition().Left, Console.GetCursorPosition().Top, output));
                 
@@ -517,6 +599,102 @@ namespace OOP_Lab2.Menu_s
             Console.Write("'"+buff+ "'");
             Console.SetCursorPosition(pos2, pos1);
         }
+        public void ThemeMenu()
+        {
+            short size = 14;
+            while (true)
+            {
+                Console.Clear();
+                int pos = Console.GetCursorPosition().Top - 1;
+                Document.SetText(strat.Read());
+                string txt = "";
+                if (Document.type == 0) txt= td.Compile();
+                if (Document.type == 1) txt = jd.Compile();
+                if (Document.type == 2) txt = md.Compile();
+                if (Document.type == 3) txt = xd.Compile();
+                if (Document.type == 4) txt = rd.Compile();
+               // Console.WriteLine(txt);
+                //if (strat is AdminStrategy s) Console.WriteLine(s.Read());
+                string output = "ctrl+o - размер шрифта,ctrl+l - сменить тему, -1 выход";
+                Console.WriteLine(output);
+                string readkey = Console.ReadLine();
+                if (readkey == "\f")
+                {
+                    output = "0 - Campbell, 1 - One Half Dark, 2 - Solarized Dark, 3 - Tango Dark, 4 - Vintage";
+                    Console.WriteLine(output);
+                    short chose = (short)checker.CheckWithBorders(Console.ReadLine(), 0, 4, output, 2);
+                    if (chose == 0)
+                    {
+                        set.SetConsoleTheme("Campbell");
+                    }
+                    if (chose == 1)
+                    {
+                        set.SetConsoleTheme("One Half Dark");
+                    }
+                    if (chose == 2)
+                    {
+                        set.SetConsoleTheme("Solarized Dark");
+                    }
+                    if (chose == 3)
+                    {
+                        set.SetConsoleTheme("Tango Dark");
+                    }
+                    if (chose == 4)
+                    {
+                        set.SetConsoleTheme("Vintage");
+                    }
+                    Clear(4);
+                }
+                if (readkey == "\u000f")
+                {
+                    while (true)
+                    {
+                        output = "esc - выход,ctrl+1 - увеличить размер шрифта,ctrl+2 уменьшить размер шрифта";
+                        Console.WriteLine(output);
+                        var k = Console.ReadKey();
+
+                        if (k.Key == System.ConsoleKey.D2 && k.Modifiers == ConsoleModifiers.Control)
+                        {
+
+                            if (size > 11)
+                            {
+                                size--;
+                                set.SetConsoleFont(size);
+
+                            }
+
+                        }
+                        if (k.Key == System.ConsoleKey.D1 && k.Modifiers == ConsoleModifiers.Control)
+                        {
+
+
+                            if (size < 15)
+                            {
+                                size++;
+                                set.SetConsoleFont(size);
+                            }
+                        }
+                        if (k.Key == System.ConsoleKey.Escape)
+                        {
+                            Console.Clear();
+                            break;
+
+                        }
+                        Clear(1);
+                    }
+                }
+               
+                if (readkey == "-1")
+                {
+                    Console.Clear();
+                    //ClearAll();
+
+                    return;
+
+                }
+
+            }
+        }
         public void ReaderMenu()
         {
             short size = 14;
@@ -524,9 +702,17 @@ namespace OOP_Lab2.Menu_s
             {
                 Console.Clear();   
                 int pos = Console.GetCursorPosition().Top - 1;
-                
-                if (strat is AdminStrategy s) Console.WriteLine(s.Read());
-                string output = "ctrl+k сохранить файл, ctrl+o - размер шрифта,ctrl+l - сменить тему,  -1 выход";
+                Document.SetText(strat.Read());
+                //string txt = compiler.Choose();
+                string txt = "";
+                if (Document.type == 0) txt = td.Compile();
+                if (Document.type == 1) txt = jd.Compile();
+                if (Document.type == 2) txt = md.Compile();
+                if (Document.type == 3) txt = xd.Compile();
+                if (Document.type == 4) txt = rd.Compile();
+                Console.WriteLine(txt);
+                //if (strat is AdminStrategy s) Console.WriteLine(s.Read());
+                string output = "ctrl+k сохранить файл и выйти, ctrl+o - размер шрифта,ctrl+l - сменить тему, 0 - просмотреть историю документа  -1 выход";
                 Console.WriteLine(output);
                 string readkey = Console.ReadLine();
                 if(readkey=="\f")
@@ -556,7 +742,7 @@ namespace OOP_Lab2.Menu_s
                     }
                     Clear(4);
                 }
-                if(readkey=="\u000f")
+                else if(readkey=="\u000f")
                 {
                     while (true)
                     {
@@ -594,15 +780,53 @@ namespace OOP_Lab2.Menu_s
                         Clear(1);
                     }
                 }
-                if(readkey=="\v")
+                else if(readkey=="\v")
                 {
+                    Console.Clear();
+                    set.SetConsoleFont(14);
+                    set.SetConsoleTheme("Campbell");
+                    while (true)
+                    {
+                        output = " 0 - сохранить локально, 1 - сохранить в облаке";
+                        Console.WriteLine(output);
+                        string inp = Console.ReadLine();
+                        if (inp == "0")
+                        {
+                            Document.SetText(txt);
+                            strat.SaveLocal(txt);
+                            return;
+                        }
+                        if (inp == "1")
+                        {
+                            Document.SetText(txt);
+                            cldd.Create(Document.name, txt);
+                            strat.SaveCloud(txt);
+                            return;
+                        }
 
+                    }
+                }
+                else if (readkey == "0")
+                {
+                    if (Document.history is not null)
+                    {
+                        Console.Clear();
+                        foreach (string s in Document.history)
+                        {
+                            Console.WriteLine("change");
+                            Console.WriteLine(s);
+                        }
+                        Console.WriteLine("нажмите любую кнопку чтобы продолить");
+                        string a = Console.ReadLine();
+                        Console.Clear();
+                    }
                 }
                 if (readkey == "-1")
                 {
                     Console.Clear();
                     //ClearAll();
-                    
+                    set.SetConsoleFont(14);
+                    set.SetConsoleTheme("Campbell");
                     return;
                     
                 }

@@ -6,13 +6,14 @@ using System.Threading.Tasks;
 
 namespace OOP_Lab2.StyleDecorator
 {
-    abstract class BaseDecorator
+    class TxtDecorator : BaseDecorator
     {
-        protected Document doc;
-        public BaseDecorator(Document doc)
+        public TxtDecorator(Document doc) : base(doc)
         {
-            this.doc = doc;
         }
-        public abstract string Compile();
+        public override string Compile()
+        {
+            return doc.GetText();
+        }
     }
 }

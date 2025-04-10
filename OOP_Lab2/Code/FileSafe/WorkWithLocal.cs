@@ -10,7 +10,8 @@ namespace OOP_Lab2.FileSafe
     class WorkWithLocal
     {
         public void Create(string name,string content)
-        {   
+        {
+            Task.Delay(190);
             File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory+name, content);
         }
         public void Delete(string name)
@@ -22,6 +23,7 @@ namespace OOP_Lab2.FileSafe
         {
             File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + name, content);
         }
+        
 
     }
 }

@@ -67,49 +67,10 @@ namespace OOP_Lab2.FileSafe
             {
                 if (a.Name == fileName) return "-1";
             }
-            Stream file= new FileStream("mem.json", FileMode.Open, FileAccess.Read); 
-            if (System.IO.File.Exists("C:/Users/pavel/source/repos/OOP_Lab2/OOP_Lab2/bin/Debug/net8.0"+fileName))
-            {
-                file = new FileStream(fileName, FileMode.Open, FileAccess.Read);
-            }
-            else
-            {
-                file.Close();
-                System.IO.File.WriteAllText(fileName, "");
-                file = new FileStream(fileName, FileMode.Open, FileAccess.Read);
-               // System.IO.File.Delete(fileName);
-                if (type == 0)
-                {
-                    fileMime = "text/plain";
-                }
-                if (type == 1)
-                {
-                    fileMime = "text/json";
-                }
-                if (type == 2)
-                {
-                    fileMime = "text/md";
-                }
-                if (type == 3)
-                {
-                    fileMime = "text/xml";
-                }
-                var driveFiler = new Google.Apis.Drive.v3.Data.File();
-                driveFiler.Name = fileName;
-                // driveFile.Description = "111";
-                driveFiler.MimeType = fileMime;
-                driveFiler.Parents = new string[] { folder };
-                //service.Files.Get
-                //
-                // service.Files.Update(driveFile, file, driveFile.MimeType,);
-                var requestr = service.Files.Create(driveFiler, file, driveFiler.MimeType);
-                requestr.Fields = "id";
-
-                var responser = requestr.Upload();
-                file.Close();
-                System.IO.File.Delete(fileName);
-                return requestr.ResponseBody.Id;
-            }
+            Stream file= new FileStream(fileName, FileMode.Open, FileAccess.Read); 
+            
+ 
+               
             //Stream file = new FileStream(fileName, FileMode.Open, FileAccess.Read);
             if (type == 0)
             {
@@ -182,9 +143,11 @@ namespace OOP_Lab2.FileSafe
                 stream.Position = 0;
 
                 // Для текстовых файлов:
-                using (var reader = new StreamReader(stream))
+                using (var reader = new StreamReader(stream, Encoding.UTF8))
                 {
                     string content = reader.ReadToEnd();
+                    stream.Close();
+                    reader.Close();
                     return content;
                 }
 

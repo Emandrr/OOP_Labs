@@ -20,7 +20,7 @@ namespace OOP_Lab2
         ManageMemFile<User> managerUs = new ManageMemFile<User>();
         User currUser;
         Settings set = new Settings();
-        WorkWithCloud w_c = new WorkWithCloud();
+        WorkWithLocal w_l = new WorkWithLocal();
         public UserMenu(User user)
         {
             if (docs == null) docs = manager.GetCollection("mem1.json");
@@ -89,7 +89,7 @@ namespace OOP_Lab2
                     currUser.CurrentStrategy = "admin";
                     currUser.SetStrategy();
                     manager.WriteCollection(docs, "mem1.json");
-                    doc.SysFileId = w_c.UploadFile(doc.name, doc.type, "17gYVcgPxxoM4UsNsyq-i2uk8K9RGI4Co", null);
+                    w_l.Create(doc.name,"");
                     currUser.ExecuteStrategy(doc,docs);
                     manager.WriteCollection(docs, "mem1.json");
 
@@ -142,7 +142,7 @@ namespace OOP_Lab2
                     manager.WriteCollection(docs, "mem1.json");
                     foreach(Document doc in docs)
                     {
-                        w_c.UploadFile(doc.name,doc.type, "17gYVcgPxxoM4UsNsyq-i2uk8K9RGI4Co",null);
+                        System.IO.File.WriteAllText(doc.name,doc.GetText());
                     }
                     return;
 
