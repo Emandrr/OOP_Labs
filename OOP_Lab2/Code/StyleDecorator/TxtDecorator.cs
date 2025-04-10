@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OOP_Lab2.StyleDecorator
 {
-    class TxtDecorator : BaseDecorator
+    public class TxtDecorator : BaseDecorator
     {
         public TxtDecorator(Document doc) : base(doc)
         {

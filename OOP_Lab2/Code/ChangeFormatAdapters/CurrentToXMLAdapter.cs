@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace OOP_Lab2.ChangeFormatAdapters
 {
-    class CurrentToXMLAdapter
+    public class CurrentToXMLAdapter
     {
         public void Parse(IUserStrategy admin, WorkWithCloud w_c, Document document)
         {
@@ -44,16 +44,26 @@ namespace OOP_Lab2.ChangeFormatAdapters
 
             string xml = markdown;
 
-            xml = Regex.Replace(xml, @"\*\*\*(.*?)\*\*\*", "<bold><italic>$1</italic></bold>");
+            xml = Regex.Replace(xml, @"\*\*\*(.*?)\*\*\*", "<b><i>$1</i></b>");
 
-            xml = Regex.Replace(xml, @"\*\*(.*?)\*\*", "<bold>$1</bold>");
+            xml = Regex.Replace(xml, @"\*\*_(.*?)_\*\*", "<b><i>$1</i></b>");
 
-            xml = Regex.Replace(xml, @"_(.*?)_", "<italic>$1</italic>");
+            xml = Regex.Replace(xml, @"_\*\*(.*?)\*\*_", "<i><b>$1</b></i>");
 
-            
-            xml = Regex.Replace(xml, @"<u>(.*?)</u>", "<underline>$1</underline>");
+            xml = Regex.Replace(xml, @"\*\*(.*?)\*\*", "<b>$1</b>");
 
-            
+            xml = Regex.Replace(xml, @"__(.*?)__", "<b>$1</b>");
+
+            xml = Regex.Replace(xml, @"\*(.*?)\*", "<i>$1</i>");
+
+            xml = Regex.Replace(xml, @"_(.*?)_", "<i>$1</i>");
+
+            xml = Regex.Replace(xml, @"~~(.*?)~~", "<u>$1</u>");
+
+            xml = Regex.Replace(xml, @"<u>(.*?)</u>", "<u>$1</u>");
+
+            xml = Regex.Replace(xml, @"\*\*<i>(.*?)</i>\*\*", "<b><i>$1</i></b>");
+            xml = Regex.Replace(xml, @"_<b>(.*?)</b>_", "<i><b>$1</b></i>");
 
             return xml;
         }
@@ -68,26 +78,26 @@ namespace OOP_Lab2.ChangeFormatAdapters
 
             text = Regex.Replace(text,
                 @"\\b\\i\\ul\s?(.*?)\\ul0\\i0\\b0",
-                "<bold><italic><underline>$1</underline></italic></bold>",
+                "<b><i><u>$1</u></i></b>",
                 RegexOptions.Singleline);
 
             text = Regex.Replace(text,
                 @"\\b\\i\s?(.*?)\\i0\\b0",
-                "<bold><italic>$1</italic></bold>",
+                "<b><i>$1</i></b>",
                 RegexOptions.Singleline);
             text = Regex.Replace(text,
                 @"\\b\\ul\s?(.*?)\\ul0\\b0",
-                "<bold><underline>$1</underline></bold>",
+                "<b><u>$1</u></b>",
                 RegexOptions.Singleline);
             text = Regex.Replace(text,
                 @"\\i\\ul\s?(.*?)\\ul0\\i0",
-                "<italic><underline>$1</underline></italic>",
+                "<i><u>$1</u></i>",
                 RegexOptions.Singleline);
 
             // 3. Одиночные стили
-            text = Regex.Replace(text, @"\\b\s?(.*?)\\b0", "<bold>$1</bold>", RegexOptions.Singleline);
-            text = Regex.Replace(text, @"\\i\s?(.*?)\\i0", "<italic>$1</italic>", RegexOptions.Singleline);
-            text = Regex.Replace(text, @"\\ul\s?(.*?)\\ul0", "<underline>$1</underline>", RegexOptions.Singleline);
+            text = Regex.Replace(text, @"\\b\s?(.*?)\\b0", "<b>$1</b>", RegexOptions.Singleline);
+            text = Regex.Replace(text, @"\\i\s?(.*?)\\i0", "<i>$1</i>", RegexOptions.Singleline);
+            text = Regex.Replace(text, @"\\ul\s?(.*?)\\ul0", "<u>$1</u>", RegexOptions.Singleline);
 
 
 

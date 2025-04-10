@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace OOP_Lab2.ChangeFormatAdapters
 {
-    class CurrentToJSONAdapter
+    public class CurrentToJSONAdapter
     {
         public void Parse(IUserStrategy admin,WorkWithCloud w_c,Document document)
         {
@@ -21,6 +21,7 @@ namespace OOP_Lab2.ChangeFormatAdapters
             {
                 if (i == tmp.Length - 1) continue;
                 else txt += s;
+                ++i;
             }
             txt += ".json";
             //admin.Delete();

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace OOP_Lab2.ChangeFormatAdapters
 {
-    class CurrentToMarkdownAdapter
+    public class CurrentToMarkdownAdapter
     {
         public void Parse(IUserStrategy admin, WorkWithCloud w_c, Document document)
         {
@@ -40,16 +40,16 @@ namespace OOP_Lab2.ChangeFormatAdapters
            // w_c.UploadFile(document.name, document.type, "17gYVcgPxxoM4UsNsyq-i2uk8K9RGI4Co", "");
             //admin.SaveCloud(document.GetText());
         }
-        private string FromXMLToMarkdown(string xml)
+        public string FromXMLToMarkdown(string xml)
         {
             string markdown = xml;
-            markdown = Regex.Replace(markdown, @"<bold><italic>(.*?)</italic></bold>", "***$1***");
-            markdown = Regex.Replace(markdown, @"<italic><bold>(.*?)</bold></italic>", "***$1***");
-            markdown = Regex.Replace(markdown, @"<bold>(.*?)</bold>", "**$1**");
-            markdown = Regex.Replace(markdown, @"<italic>(.*?)</italic>", "_$1_");
-            markdown = Regex.Replace(markdown, @"<bold><underline>(.*?)</underline></bold>", "**<u>$1</u>**");
-            markdown = Regex.Replace(markdown, @"<italic><underline>(.*?)</underline></italic>", "_<u>$1</u>_");
-            markdown = Regex.Replace(markdown, @"<bold><italic><underline>(.*?)</underline></italic></bold>", "***<u>$1</u>***");
+            markdown = Regex.Replace(markdown, @"<b><i>(.*?)</i></b>", "***$1***");
+            markdown = Regex.Replace(markdown, @"<i><b>(.*?)</b></i>", "***$1***");
+            markdown = Regex.Replace(markdown, @"<b>(.*?)</b>", "**$1**");
+            markdown = Regex.Replace(markdown, @"<i>(.*?)</i>", "*$1*");
+            markdown = Regex.Replace(markdown, @"<b><u>(.*?)</u></b>", "**<u>$1</u>**");
+            markdown = Regex.Replace(markdown, @"<i><u>(.*?)</u></i>", "*<u>$1</u>*");
+            markdown = Regex.Replace(markdown, @"<b><i><u>(.*?)</u></i></b>", "***<u>$1</u>***");
             return markdown.Trim();
 
 
@@ -60,24 +60,24 @@ namespace OOP_Lab2.ChangeFormatAdapters
 
            
             result = Regex.Replace(result,
-                @"/b/i/u(.+?)/ul0/i/b",
+                @"\\b\\i\\u(.+?)\\ul0\\i0\\b0",
                 "***<u>$1</u>***");
 
             
             result = Regex.Replace(result,
-                @"/b/i(.+?)/i/b",
+                @"\\b\\i(.+?)\\i0\\b0",
                 "***$1***");
             result = Regex.Replace(result,
-                @"/b/u(.+?)/ul0/b",
+                @"\\b\\u(.+?)\\ul0\\b0",
                 "**<u>$1</u>**");
             result = Regex.Replace(result,
-                @"/i/u(.+?)/ul0/i",
+                @"\\i\\u(.+?)\\ul0\\i0",
                 "*<u>$1</u>*");
 
             
-            result = Regex.Replace(result, @"/b(.+?)/b", "**$1**");
-            result = Regex.Replace(result, @"/i(.+?)/i", "*$1*");
-            result = Regex.Replace(result, @"/u(.+?)/ul0", "<u>$1</u>");
+            result = Regex.Replace(result, @"\\b(.+?)\\b0", "**$1**");
+            result = Regex.Replace(result, @"\\i(.+?)\\i0", "*$1*");
+            result = Regex.Replace(result, @"\\u(.+?)\\ul0", "<u>$1</u>");
 
             
             result = result.Replace("<u>>", "<u>")

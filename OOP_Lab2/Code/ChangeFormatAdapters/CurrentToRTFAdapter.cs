@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace OOP_Lab2.ChangeFormatAdapters
 {
-    class CurrentToRTFAdapter
+    public class CurrentToRTFAdapter
     {
         public void Parse(IUserStrategy admin, WorkWithCloud w_c, Document document)
         {
@@ -46,24 +46,24 @@ namespace OOP_Lab2.ChangeFormatAdapters
             string text = markdown;
 
             text = Regex.Replace(text, @"\*\*\*<u>(.*?)</u>\*\*\*",
-                @"\b\i\ul $1\ulnone\i0\b0 ",
+                @"\b\i\u$1\ul0\i0\b0",
                 RegexOptions.Singleline);
 
             text = Regex.Replace(text, @"\*\*\*(.*?)\*\*\*",
-                @"\b\i $1\i0\b0 ",
+                @"\b\i$1\i0\b0",
                 RegexOptions.Singleline);
 
             text = Regex.Replace(text, @"\*\*<u>(.*?)</u>\*\*",
-                @"\b\ul $1\ulnone\b0 ",
+                @"\b\u$1\ul0\b0",
                 RegexOptions.Singleline);
 
             text = Regex.Replace(text, @"\*<u>(.*?)</u>\*",
-                @"\i\ul $1\ulnone\i0 ",
+                @"\i\u$1\ul0\i0",
                 RegexOptions.Singleline);
 
-            text = Regex.Replace(text, @"\*\*(.*?)\*\*", @"\b $1\b0 ", RegexOptions.Singleline);
-            text = Regex.Replace(text, @"\*(.*?)\*", @"\i $1\i0 ", RegexOptions.Singleline);
-            text = Regex.Replace(text, @"<u>(.*?)</u>", @"\ul $1\ulnone ", RegexOptions.Singleline);
+            text = Regex.Replace(text, @"\*\*(.*?)\*\*", @"\b$1\b0", RegexOptions.Singleline);
+            text = Regex.Replace(text, @"\*(.*?)\*", @"\i$1\i0", RegexOptions.Singleline);
+            text = Regex.Replace(text, @"<u>(.*?)</u>", @"\u$1\ul0", RegexOptions.Singleline);
 
 
             rtf.Append(text);
@@ -79,27 +79,27 @@ namespace OOP_Lab2.ChangeFormatAdapters
             string text = xml;
 
             text = Regex.Replace(text,
-                @"<bold><italic><underline>(.*?)</underline></italic></bold>",
-                @"\b\i\ul $1\ul0\i0\b0 ",
+                @"<b><i><u>(.*?)</u></i></b>",
+                @"\b\i\ul$1\ul0\i0\b0",
                 RegexOptions.Singleline);
 
             // 2. Двойные комбинации
             text = Regex.Replace(text,
-                @"<bold><italic>(.*?)</italic></bold>",
-                @"\b\i $1\i0\b0 ",
+                @"<b><i>(.*?)</i></b>",
+                @"\b\i$1\i0\b0",
                 RegexOptions.Singleline);
             text = Regex.Replace(text,
-                @"<bold><underline>(.*?)</underline></bold>",
-                @"\b\ul $1\ul0\b0 ",
+                @"<b><u>(.*?)</u></b>",
+                @"\b\ul$1\ul0\b0",
                 RegexOptions.Singleline);
             text = Regex.Replace(text,
-                @"<italic><underline>(.*?)</underline></italic>",
-                @"\i\ul $1\ul0\i0 ",
+                @"<i><u>(.*?)</u></i>",
+                @"\i\ul$1\ul0\i0",
                 RegexOptions.Singleline);
 
-            text = Regex.Replace(text, @"<bold>(.*?)</bold>", @"\b $1\b0 ", RegexOptions.Singleline);
-            text = Regex.Replace(text, @"<italic>(.*?)</italic>", @"\i $1\i0 ", RegexOptions.Singleline);
-            text = Regex.Replace(text, @"<underline>(.*?)</underline>", @"\ul $1\ul0 ", RegexOptions.Singleline);
+            text = Regex.Replace(text, @"<b>(.*?)</b>", @"\b$1\b0", RegexOptions.Singleline);
+            text = Regex.Replace(text, @"<i>(.*?)</i>", @"\i$1\i0", RegexOptions.Singleline);
+            text = Regex.Replace(text, @"<u>(.*?)</u>", @"\ul$1\ul0", RegexOptions.Singleline);
 
             text = Regex.Replace(text, @"<\/?(document|text)[^>]*>", "", RegexOptions.Singleline);
 

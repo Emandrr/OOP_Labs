@@ -8,3 +8,5 @@ This is s simple project using c# as a language and OOP principles and patterns
 
 
 ![alt text](image-1.png)
+![alt text](image.png)
+![alt text](image-2.png)

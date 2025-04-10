@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace OOP_Lab2.ChangeFormatAdapters
 {
-    class CurrentToTxtAdapter
+    public class CurrentToTxtAdapter
     {
         public void Parse(IUserStrategy admin, WorkWithCloud w_c, Document document)
         {
@@ -21,6 +21,7 @@ namespace OOP_Lab2.ChangeFormatAdapters
             {
                 if (i == tmp.Length - 1) continue;
                 else txt += s;
+                ++i;
             }
             txt += ".txt";
             if (admin is AdminStrategy adm) adm.Upload(txt);

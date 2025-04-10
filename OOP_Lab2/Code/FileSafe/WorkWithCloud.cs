@@ -18,7 +18,7 @@ using Google.Apis.Util.Store;
 
 namespace OOP_Lab2.FileSafe
 {
-    class WorkWithCloud
+    public class WorkWithCloud
     {
 
         private static DriveService GetService()

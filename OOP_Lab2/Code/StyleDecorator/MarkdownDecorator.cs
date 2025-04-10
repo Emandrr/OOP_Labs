@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace OOP_Lab2.StyleDecorator
 {
-    class MarkdownDecorator : BaseDecorator
+    public class MarkdownDecorator : BaseDecorator
     {
         public MarkdownDecorator(Document doc) : base(doc)
         {

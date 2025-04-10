@@ -43,7 +43,7 @@ namespace OOP_Lab2
                 int choise = checker.CheckWithBorders(Console.ReadLine(), -1, 2, output, 2);
                 if (choise == 0)
                 {
-                    output = "Введите имя файла";
+                    output = "Введите имя файла - без расширения";
                     Console.WriteLine(output);
                     string name = Console.ReadLine();
                     while (checker.CheckStringInCollectionDoc(docs, name))
@@ -85,10 +85,11 @@ namespace OOP_Lab2
                         docs.Add(doc);
                         currUser.SetDocument(doc);
                     }
-                    ClearAll();
+                    Console.Clear();
                     currUser.CurrentStrategy = "admin";
                     currUser.SetStrategy();
                     manager.WriteCollection(docs, "mem1.json");
+                    //manager.WriteCollection(currUser, "mem.json");
                     w_l.Create(doc.name,"");
                     currUser.ExecuteStrategy(doc,docs);
                     manager.WriteCollection(docs, "mem1.json");
@@ -115,7 +116,7 @@ namespace OOP_Lab2
                     Document doc = new Document(null,null,1);
                     foreach (Document dc in docs)
                     {
-                        if (DocName == dc.name.Split(".")[0]) doc = dc;
+                        if (DocName == dc.name) doc = dc;
                     }
                     //Console.WriteLine(doc.name);
                     currUser.CurrentStrategy = doc.CheckRole(currUser.Name);
@@ -138,7 +139,7 @@ namespace OOP_Lab2
                 }
                 else if (choise == -1)
                 {
-                    Clear(3);
+                    Console.Clear();
                     manager.WriteCollection(docs, "mem1.json");
                     foreach(Document doc in docs)
                     {

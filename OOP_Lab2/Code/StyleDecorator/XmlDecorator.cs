@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace OOP_Lab2.StyleDecorator
 {
-    class XmlDecorator : BaseDecorator
+    public class XmlDecorator : BaseDecorator
     {
         public XmlDecorator(Document doc) : base(doc)
         {

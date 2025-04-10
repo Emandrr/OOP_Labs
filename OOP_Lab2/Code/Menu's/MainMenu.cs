@@ -27,7 +27,8 @@ namespace OOP_Lab2
             while (true) {
                 set.SetConsoleFont(14);
                 set.SetConsoleTheme("Campbell");
-                Users = manager.GetCollection("mem.json"); 
+                Users = manager.GetCollection("mem.json");
+                if (Users == null) Users = new List<User>();
                 output = "0 - Создать пользователя, 1 - Выбрать пользователя для входа, -1 - Выход";
                 Console.WriteLine(output);
                 input = Console.ReadLine();
@@ -45,11 +46,13 @@ namespace OOP_Lab2
                     }
                     User tmp = new User("admin",name,docs.GetCollection("mem1.json"));
                     Users.Add(tmp);
-                    tmp.Enter();
-                    Console.WriteLine(name);
                     Clear(4);
+                    Console.WriteLine(name);
+                    manager.WriteCollection(Users,"mem.json");
+                    tmp.Enter();
+                    
                 }
-                else if( choise == 1)
+                else if( choise == 1 && Users.Count>0)
                 {
                     Console.WriteLine("Список всех пользователей");
                     Worker.Print(Users);
@@ -76,6 +79,7 @@ namespace OOP_Lab2
                     manager.WriteCollection(Users,"mem.json");
                     return;
                 }
+                Console.Clear();
             }
         }
         public void Clear(int count)

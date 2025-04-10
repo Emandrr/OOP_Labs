@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace OOP_Lab2.StyleDecorator
 {
-    class RtfDecorator : BaseDecorator
+    public class RtfDecorator : BaseDecorator
     {
         public RtfDecorator(Document doc) : base(doc)
         {

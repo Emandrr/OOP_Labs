@@ -36,6 +36,7 @@ namespace OOP_Lab2.Menu_s
         RtfDecorator rd;
         JsonDecorator jd;
         TxtDecorator td;
+        //List<Document> docs;
         public DocumentMenu(string role,IUserStrategy admin, Document document,Settings set)
         {
             this.RoleToShow = role;
@@ -161,6 +162,7 @@ namespace OOP_Lab2.Menu_s
                 Document.SetText(t);
                 sq.ChangeFormat(outpr[inpp]);
             }
+            //Manag.WriteCollection(d);
             Console.Clear();
            
             

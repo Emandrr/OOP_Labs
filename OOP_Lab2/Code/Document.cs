@@ -21,7 +21,7 @@ namespace OOP_Lab2
         
         public int type { get; set; }
         private CloudStorage Cstorage;
-        private LocalStorage Lstorage;
+        //private LocalStorage Lstorage;
         public string FileId = "0";
         public string SysFileId = "0";
         WorkWithCloud w_c;

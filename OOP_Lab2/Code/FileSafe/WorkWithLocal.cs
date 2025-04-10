@@ -7,7 +7,7 @@ using System.Xml.Linq;
 
 namespace OOP_Lab2.FileSafe
 {
-    class WorkWithLocal
+    public class WorkWithLocal
     {
         public void Create(string name,string content)
         {

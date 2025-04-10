@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OOP_Lab2.StyleDecorator
 {
-    class JsonDecorator : BaseDecorator
+    public class JsonDecorator : BaseDecorator
     {
         public JsonDecorator (Document doc) : base(doc)
         {
