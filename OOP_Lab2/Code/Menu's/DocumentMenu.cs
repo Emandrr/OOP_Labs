@@ -213,7 +213,7 @@ namespace OOP_Lab2.Menu_s
              txt = strat.Read();
             //Console.WriteLine(txt);
             int apos = Console.GetCursorPosition().Top;
-            if (apos - 2 > 0) Console.SetCursorPosition(0, apos - 1);
+            if (apos - 2 > 0) Console.SetCursorPosition(0, 0);
             cmd.Save(new Frame(txt, Console.GetCursorPosition().Left, Console.GetCursorPosition().Top, "esc - выход,ctrl+1 - вниз,ctrl+2 вверх,ctrl+3 - влево,ctrl+4 вправо,ctrl+f - поиск слова,shift+>,shift+< выделить, ctrl+5 вставить пробел,ctr+backspace - удалить символ, ctrl+x отмена, ctrl+o отмена отмены, ctrl+b - копировать,ctrl+v вставить, ctrl+t - удалить выделенную часть,ctrl+q сохранить файл и выход,ctrl+u смена темы,ctrl+h -история документа"));
             while (true)
             {
@@ -277,7 +277,7 @@ namespace OOP_Lab2.Menu_s
                     pos_l = pos_r = 0;
                     ClearBuff(ref pos_l, ref pos_r, ref buff, pos, Console.GetCursorPosition().Left, Console.GetCursorPosition().Top);
                     flag = false;
-                    if (Console.GetCursorPosition().Top < pos-2) Console.SetCursorPosition(Console.GetCursorPosition().Left, Console.GetCursorPosition().Top + 1);
+                    if (Console.GetCursorPosition().Top < pos-4) Console.SetCursorPosition(Console.GetCursorPosition().Left, Console.GetCursorPosition().Top + 1);
                     //Clear(1);
                     //Console.Clear();
                 }
@@ -497,6 +497,7 @@ namespace OOP_Lab2.Menu_s
                         string a = Console.ReadLine();
                         Console.Clear();
                     }
+                    flag = true;
                 }
                 else cmd.Save(new Frame(txt, Console.GetCursorPosition().Left, Console.GetCursorPosition().Top, output));
                 
@@ -587,9 +588,9 @@ namespace OOP_Lab2.Menu_s
 
                     l++;
                 }
-                else if(pos1==0)
+                else if(buff.Length <= txt.Split("\n")[pos1].Length - 2 || (pos1 == txt.Split("\n").Length - 1 && buff.Length < txt.Split("\n")[pos1].Length) && pos2==0)
                 {
-                    buff += tmp[pos1][pos2];
+                    buff = buff.Insert(0, tmp[pos1][pos2].ToString());
                     l++;
                 }
             }

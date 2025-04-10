@@ -11,11 +11,11 @@ namespace OOP_Lab2.FileSafe
     {
         WorkWithLocal w_l;
         //WorkWithLocal w_l;
-        LocalStorage Lstorage;
-        public void Execute(LocalStorage cs)
+        //LocalStorage Lstorage;
+        public void Execute()
         {
             w_l = new WorkWithLocal();
-            Lstorage = cs;
+           // Lstorage = cs;
         }
         public void LocalCreate(string name,int typem,string content)
         {
