@@ -25,8 +25,8 @@ namespace OOP_Lab2.FileSafe
         {
             var tokenResponse = new TokenResponse
             {
-                AccessToken = "ya29.a0AZYkNZgFtrEGQuiENFrZrKI8AZ0hwQ41FukU6KsmyNc9hX6xGoA1ZRzJ20C6ObxSsHnXosS6PvcivlmzJ8PoEpzz-I-gN9uk04VuBZqYNSkv8Vf7RkGQsWkcK3UB6ayHxPA781qhrWs37bfHxbI5bhgFXOoscMD7R32ctBuiaCgYKAesSARASFQHGX2MiKQh1awinzssbNNh0MaDRWA0175",
-                RefreshToken = "1//04qKWPCiQQGndCgYIARAAGAQSNwF-L9IrkgiF7DM4sl6TREWRXM9NIu7zC2q1P77XXmYum9oDJoFbbDQ7TWTmU4CmRWI4tGqzMZ4",
+                AccessToken = "",
+                RefreshToken = "",
             };
 
 
@@ -38,8 +38,8 @@ namespace OOP_Lab2.FileSafe
             {
                 ClientSecrets = new ClientSecrets
                 {
-                    ClientId = "1049876216335-9l4p6hc4gd2c039ioelj8n0uneo6ceq1.apps.googleusercontent.com",
-                    ClientSecret = "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"
+                    ClientId = "",
+                    ClientSecret = ""
                 },
                 Scopes = new[] { DriveService.Scope.Drive },
                 DataStore = new FileDataStore(applicationName)
