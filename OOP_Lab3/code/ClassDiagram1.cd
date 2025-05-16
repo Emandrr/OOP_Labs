@@ -1,0 +1,126 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="OOP_LAB3.Presentation.DependencyInjection">
+    <Position X="8.5" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Presentation\DependencyInjection.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OOP_LAB3.Presentation.UI.UI">
+    <Position X="4" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAQAAAAAAAAAAAAAAAAAAACAAAAEAAAAAAAAAAAA=</HashCode>
+      <FileName>Presentation\UI\UI.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_addCommand" />
+      <Field Name="_editCommand" />
+      <Field Name="_viewCommand" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="OOP_LAB3.Presentation.Commands.AddStudentCommand" BaseTypeListCollapsed="true">
+    <Position X="6.75" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAEA=</HashCode>
+      <FileName>Presentation\Commands\AddStudentCommand.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_service" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="OOP_LAB3.Presentation.Commands.EditStudentCommand" BaseTypeListCollapsed="true">
+    <Position X="4" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAEA=</HashCode>
+      <FileName>Presentation\Commands\EditStudentCommand.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_service" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="OOP_LAB3.Presentation.Commands.ViewStudentsCommand" BaseTypeListCollapsed="true">
+    <Position X="1.5" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAEA=</HashCode>
+      <FileName>Presentation\Commands\ViewStudentCommand.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_service" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="OOP_LAB3.Domain.Entities.Student">
+    <Position X="8.5" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>Domain\Entities\Student.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OOP_LAB3.Domain.Factories.QuoteFactory" Collapsed="true">
+    <Position X="10.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>Domain\Factories\QuoteFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OOP_LAB3.Domain.Factories.StudentFactory" Collapsed="true">
+    <Position X="10.5" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>Domain\Factories\StudentFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OOP_LAB3.Domain.Validators.StudentValidator" Collapsed="true">
+    <Position X="10.5" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Domain\Validators\StudentValidator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OOP_LAB3.DataAccess.Repositories.StudentRepository">
+    <Position X="5.25" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAYAgIAAAAAAAAAACAAAAAAAAAAAAEAAAgAAAAAAAAA=</HashCode>
+      <FileName>DataAccess\Repositories\StudentRepository.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Field Name="ListOfStudents" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="OOP_LAB3.DataAccess.Api.QuoteAdapter" Collapsed="true">
+    <Position X="3" Y="3.25" Width="1.5" />
+    <NestedTypes>
+      <Class Name="OOP_LAB3.DataAccess.Api.QuoteAdapter.QuoteApiResponse" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>DataAccess\Api\QuoteAdapter.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAEAAAAAAAAAA=</HashCode>
+      <FileName>DataAccess\Api\QuoteAdapter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OOP_LAB3.Application.Services.StudentService">
+    <Position X="5.25" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAABEAAAEAAAAAIAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Application\Services\StudentService.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_quoteAdapter" />
+      <Field Name="_repository" />
+    </ShowAsAssociation>
+  </Class>
+  <Interface Name="OOP_LAB3.Application.Interfaces.ICommand" Collapsed="true">
+    <Position X="0.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEA=</HashCode>
+      <FileName>Application\Interfaces\ICommand.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
